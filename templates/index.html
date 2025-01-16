@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+
+{% block body %}
+<main>
+<section id="bio-section">
+  <div class="bio">
+    <div class="left-side">
+      <img src="./images/profile.jpg">
+    </div>
+    <div class="right-side">
+      I'm a master student at
+      <a href="https://imc.uc.cl/" target="_blank">Instituto de Ingeniería Matemática y Computacional</a>
+      in Pontificia Universidad Católica de Chile,
+      working in <strong>operator learning</strong>.
+      <p>
+      On my free time I delve into the mathematical aspects of nice applications, mostly
+      in <strong>geometry processing</strong>.
+    </div>
+  </div>
+</section>
+
+<section id="gallery-section">
+<h1>Coding Adventures</h1>
+<div class ="gallery">
+  {% for title, filename in [
+    ('Model View Projection', 'ModelViewProjection'),
+    ('The Heat Method for Distance Computation', 'HeatMethod'),
+    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian')
+  ]%}
+  <div class="gallery-item">
+    <a href="coding/{{ filename }}.html">
+      <p>{{ title }}</p>
+      <img src="images/{{ filename}}.png"/>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+</section>
+
+</main>
+{% endblock %}
+

@@ -1,0 +1,134 @@
+* {
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #2C2E3A;
+}
+
+body {
+  margin: 0;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  height: 2em;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #2C2E3A;
+}
+
+.navbar > a {
+  display: block;
+  height: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+
+main {
+  padding: 0.5ex 1em;
+  margin: 0 0 2em 0;
+  background-color: color-mix(in oklab, lavender 50%, white);
+}
+
+.bio {
+  display: flex;
+  flex: 1 4;
+  margin: 1em;
+  gap: 1em;
+  height: 30%;
+  justify-items: center;
+}
+
+.bio > .left-side > img {
+  width: 70%;
+  border-radius: 50%;
+  border: 2px solid black;
+  margin-left: 20%;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+  gap: 1em;
+  justify-items: center;
+}
+
+.gallery-item {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  width: 20%;
+  aspect-ratio: 0.9;
+  padding: 0;
+  margin: 0;
+  border: 2px solid #2C2E3A;
+}
+
+.gallery-item  img {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.gallery-item  p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 3em;
+  color: white;
+  background-color: #2C2E3A;
+}
+
+.gallery-item:hover {
+  border: 2px solid gray;
+}
+
+.gallery-item:hover  p {
+  color: black;
+  background-color: white;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start; 
+  height: 1.5em;
+  width: 100%;
+  margin: 0;
+  background-color: #2C2E3A;
+}
+
+.footer a {
+  color: white;
+}
+
+/*  ====  Mobile Resposive  ===  */
+@media only screen and (max-width: 600px) {
+* {
+  font-size: 20px;
+}
+.bio > .left-side {
+  display: none;
+}
+.bio > .rigth-side {
+  width: 100%;
+}
+.gallery {
+  flex-direction: column;
+}
+.gallery-item {
+  width: 100%;
+}
+}
+
