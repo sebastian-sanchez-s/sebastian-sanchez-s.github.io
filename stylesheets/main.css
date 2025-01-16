@@ -1,0 +1,149 @@
+* {
+  font-size: x-large;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+body {
+  margin: 0;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  height: 2em;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: black;
+  border-bottom: 1px solid darkcyan;
+}
+
+.navbar > a {
+  display: block;
+  height: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+
+main {
+  display: grid;
+  padding: 1em;
+  grid-template-rows: 1fr 2fr;
+  background-color: #0C0A00;
+}
+
+.bio {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 30%;
+  justify-items: center;
+  align-items: center;
+}
+
+.bio > .left-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bio > .left-side > img {
+  width: 50%;
+  border-radius: 50%;
+  border: 3px solid lightgray;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+  gap: 1em;
+}
+
+.gallery-item {
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  text-align: center;
+  width: 20%;
+  aspect-ratio: 4/5;
+  padding: 0;
+  margin: 0;
+  border: 2px ridge darkcyan;
+}
+
+.gallery-item  img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin: 0;
+  padding: 0;
+}
+
+.gallery-item  p {
+  display: flex;
+  font-size: large;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 3em;
+  color: white;
+  background-color: black;
+  border-bottom: 2px ridge darkcyan;
+}
+
+.gallery-item:hover {
+  border: 2px solid gray;
+}
+
+.gallery-item:hover  p {
+  color: black;
+  background-color: white;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start; 
+  height: 1.5em;
+  width: 100%;
+  margin: 0;
+  background-color: black;
+  border-top: 1px solid darkcyan;
+}
+
+.footer a {
+  color: white;
+}
+
+/*  ====  Mobile Resposive  ===  */
+@media only screen and (max-width: 600px) {
+  * {
+    font-size: medium;
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  .bio {
+    display: flex;
+  }
+  .bio > .left-side {
+    display: none;
+  }
+  .gallery {
+    flex-direction: column;
+  }
+  .gallery-item {
+    width: 100%;
+  }
+}
+
