@@ -1,0 +1,90 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+
+\title{Simplicial Homology and Cohomology\\ A Geometrical Introduction}
+\author{Sebastián Sánchez}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Most of the rigorous definition are from~\cite{munkres}.
+
+\section{Simplicial Complexes}
+
+A simplicial complex is a generalization of a triangulation. The role of triangles is
+played by the simplices. A \(d\)-simplex is collection of \(d+1\) affinely independent points
+in \(\R^{d}\), affinely indepedent means that the relative vectors are linearly independent:
+\begin{displaymath}
+  a_0, \dots, a_d \quad\textrm{affinely independent}
+  \iff
+  a_1-a_0, \dots, a_d-a_0 \quad\textrm{linearly independent}.
+\end{displaymath}
+Naturally, we can associate a geometric realization of a simplex by taking is convex hull.
+A simplicial complex \(K\) is a collection of simplices closed under the relation of subsets and 
+closed under the operation of intersection. Explicitely,
+\begin{enumerate}
+  \item for any \(P\in K\), \(Q\in K\) for any \(Q\subset P\),
+  \item for any \(P, S\in K\), \(P\cap S \in K\).
+\end{enumerate}
+
+\section{Homology}
+
+As in triangulations and more generally in graphs, we can define a notion of a walk
+in a simplicial complex. In order to define a walk, we need a notion of orientation.
+This is simply given by describing a simplex in an ordered list (choosen by you or given):
+\begin{displaymath}
+  P = \lbrace p_0, \ldots, p_d \rbrace 
+  \rightarrow
+  \langle P \rangle = \langle p_0, \ldots, p_d \rangle.
+\end{displaymath}
+We denote by \(\langle p_0, \ldots, \hat p_i, \ldots, p_d \rangle\) for the oriented
+simplex with the \(p_i\) element removed and \(\langle K \rangle\) for the oriented simplicial
+complex. 
+Once an orientation is given for all simplices
+in the complex, we define a walk as a collection of simplices of the same dimension.
+Equivalently, a walk correspond to a function \(c\colon \langle K^{(d)} \rangle \to \Z_2\). Denote
+by \(c_{\langle P \rangle}\) the oriented indicator function of the simplex \(\langle P \rangle\), that is:
+\begin{displaymath}
+  c_{\langle P\rangle}(\langle S\rangle) = 
+  \left\{
+  \begin{aligned}
+    1 &\quad P = S \land \langle P \rangle = \langle S \rangle\\
+    -1 &\quad  P=S \land \langle P \rangle \ne \langle S \rangle\\
+    0 &\quad P\ne S
+  \end{aligned}
+  \right.
+\end{displaymath}
+For easy of notation, we drop the \(\langle \cdot \rangle\), but keep in mind that all simplices
+are oriented. Then, any walk can be written as
+\begin{displaymath}
+  c = \sum_{P} b_P c_{P}.
+\end{displaymath}
+The set of this functions with component-wise addition form a group structure, it's called
+the \(d\)-chain group and denoted by \(C_d(K)\).
+
+A \(d\)-simplex \(P=\langle p_0, \ldots, p_d \rangle\) is by itself a simplicial complex. 
+The orientation of \(P\) suggest a walk given by traversing its maximal faces, that is,
+start at the face without \(p_0\), then move to the face without \(p_1\) then to the face
+without \(p_2\) and so on. Simbolically,
+\begin{displaymath}
+  \langle \hat p_0, p_1, \ldots, p_d\rangle + 
+  \langle p_0, \hat p_1, \ldots, p_d\rangle 
+  + \cdots +
+  \langle p_0, \cdots, \hat p_d \rangle
+\end{displaymath}
+
+\section{Cohomology}
+
+\begin{thebibliography}{9}
+\bibitem{munkres}
+  Elements of Algebraic Topology, James Munkres.
+\end{thebibliography}
+
+\end{document}
