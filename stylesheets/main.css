@@ -77,24 +77,33 @@ main {
   border: 2px ridge darkcyan;
 }
 
-.gallery-item  img {
+#math-adventures .gallery-item {
+  aspect-ratio: 1;
+}
+
+.gallery-item img {
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1;
   margin: 0;
   padding: 0;
 }
 
 .gallery-item  p {
+  font-size: medium;
   display: flex;
   font-size: large;
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
-  height: 3em;
+  height: 3.5em;
   color: white;
   background-color: black;
   border-bottom: 2px ridge darkcyan;
+}
+
+#math-adventures .gallery-item p {
+  height: 100%;
 }
 
 .gallery-item:hover {
