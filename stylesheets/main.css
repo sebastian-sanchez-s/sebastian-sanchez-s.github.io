@@ -62,8 +62,6 @@ main {
 
 .gallery-item {
   text-align: center;
-  display: grid;
-  grid-template-rows: 1fr 4fr;
   width: 20%;
   aspect-ratio: 0.9;
   padding: 0;
@@ -71,9 +69,13 @@ main {
   border: 2px solid #2C2E3A;
 }
 
-.gallery-item  img {
+#math-adventures .gallery-item {
+  aspect-ratio: 1;
+}
+
+.gallery-item img {
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1;
 }
 
 .gallery-item  p {
@@ -82,9 +84,13 @@ main {
   justify-content: center;
   margin: 0;
   padding: 0;
-  height: 3em;
+  height: 3.5em;
   color: white;
   background-color: #2C2E3A;
+}
+
+#math-adventures .gallery-item p {
+  height: 100%;
 }
 
 .gallery-item:hover {

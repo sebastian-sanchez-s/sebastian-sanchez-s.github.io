@@ -19,7 +19,7 @@
   </div>
 </section>
 
-<section id="gallery-section">
+<section id="coding-adventures">
 <h1>Coding Adventures</h1>
 <div class ="gallery">
   {% for title, filename in [
@@ -31,6 +31,23 @@
     <a href="coding/{{ filename }}.html">
       <p>{{ title }}</p>
       <img src="images/{{ filename}}.png"/>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+</section>
+
+<section id="math-adventures">
+<h1>Math Adventures</h1>
+<div class ="gallery">
+  {% for title, filename in [
+    ('Model View Projection', 'ModelViewProjection'),
+    ('The Heat Method for Distance Computation', 'HeatMethod'),
+    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian')
+  ]%}
+  <div class="gallery-item">
+    <a href="coding/{{ filename }}.html">
+      <p>{{ title }}</p>
     </a>
   </div>
   {% endfor %}

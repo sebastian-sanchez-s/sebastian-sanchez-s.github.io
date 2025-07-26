@@ -42,7 +42,7 @@ closed under the operation of intersection. Explicitely,
 We start with the usual introduction to simplicial homology and then move into
 the geometry.
 
-\subsection{Notation and Definitions}
+\subsection{Quick and Dirty Introduction to Simplicial Homology}
 
 Let \(K\) be a simplicial complex and give it an orientation. That is, every
 simplex now is not just a set, but an ordered list. We declare two orientations
@@ -80,7 +80,7 @@ This map is called the boundary map and satisfies \(\partial_{d} \circ
   H_d(K) = \frac{\ker \partial_{d}}{\im \partial_{d+1}}.
 \end{displaymath}
 
-\subsection{Geometry}
+\subsection{The Geometry of Simplicial Homology}
 
 A \(d\)-chain is a selection of simplices (by definition) and can be thought as a 
 subcomplex or even a \(d\)-dimensional walk. Let's start simple. Consider the simplicial
@@ -100,26 +100,33 @@ The corresponding chain is
 \begin{displaymath}
   c = [0,1] + [1,2] - [0, 2].
 \end{displaymath}
-Then, evaluation of \(c\) ask for membership. Let's see what the boundary operator does to this
-subcomplex:
+Then, evaluation of \(c\) ask for (oriented) membership. Let's see what the
+boundary operator does to this subcomplex:
 \begin{displaymath}
-  \partial c = ([0] - [1]) + ([1] - [2]) - ([0] - [2]) = 0
+  \partial c = ([1] - [0]) + ([2] - [1]) - ([2] - [0]) = 0
 \end{displaymath}
-That is, the boundary of \(c\) has no members. Let's compute a different example. Consider
-the chain:
+That is, the boundary of \(c\) has no members. Let's compute a different
+example. Consider the chain:
 \begin{displaymath}
   c' = [0, 2] + [2, 4]
 \end{displaymath}
-Then, \(\partial c' = [0] + [4]\) and the boundary of \(c'\) has as members 0 and 4.
-Therefore, as the name suggest, the boundary map computes the boundary of the subgraph
-and having no boundary means we are in a cycle.
+Then, \(\partial c' = [0] + [4]\) and the boundary of \(c'\) has as members 0
+and 4. In these tiny examples, as its name suggest, the boundary operator
+actually computes the boundary of the subcomplex. Let's examine this behavior
+a bit more generally.
+
+\medskip
+An orientation is \textit{the way} we walk around the boundary of a simplex,
+where by boundary we mean the codimension 1 subsimplices. Therefore, a chain is
+not just a simple selection of simplices, it's a selection of simplices and
+they way to walk around them. 
 
 
 \section{Simplicial Cohomology}
 
 \begin{thebibliography}{9}
 \bibitem{munkres}
-  Elements of Algebraic Topology (1989), James Munkres.
+  Munkres, James R. Elements of algebraic topology. CRC press, 2018.
 \end{thebibliography}
 
 \end{document}
