@@ -24,7 +24,7 @@
 <div class ="gallery">
   {% for title, filename in [
     ('Model View Projection', 'ModelViewProjection'),
-    ('The Heat Method for Distance Computation', 'HeatMethod'),
+    ('The Heat Method for Distance Computation', 'HeatMethodBackup'),
     ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian')
   ]%}
   <div class="gallery-item">
@@ -39,17 +39,11 @@
 
 <section id="math-adventures">
 <h1>Math Adventures</h1>
-<div class ="gallery">
+<div class="math-list">
   {% for title, filename in [
-    ('Model View Projection', 'ModelViewProjection'),
-    ('The Heat Method for Distance Computation', 'HeatMethod'),
-    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian')
+    ('Simplicial Homology and Cohomology', 'simplicial_homology_and_cohomology'),
   ]%}
-  <div class="gallery-item">
-    <a href="coding/{{ filename }}.html">
-      <p>{{ title }}</p>
-    </a>
-  </div>
+  <a href="math/{{ filename }}.html">{{ title }}</a>
   {% endfor %}
 </div>
 </section>

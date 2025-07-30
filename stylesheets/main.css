@@ -35,7 +35,7 @@ body {
 main {
   display: grid;
   padding: 1em;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 2fr 1fr;
   background-color: #0C0A00;
 }
 
@@ -102,17 +102,28 @@ main {
   border-bottom: 2px ridge darkcyan;
 }
 
-#math-adventures .gallery-item p {
-  height: 100%;
-}
-
 .gallery-item:hover {
-  border: 2px solid gray;
+  border: 2px solid cyan;
 }
 
 .gallery-item:hover  p {
   color: black;
   background-color: white;
+}
+
+.math-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.math-list a {
+  padding: 1ex;
+  font-size: large;
+  border: 2px solid darkcyan;
+}
+
+.math-list a:hover {
+  border: 2px solid cyan;
 }
 
 .footer {
