@@ -1,5 +1,5 @@
 * {
-  font-size: x-large;
+  font-size: large;
   color: white;
 }
 
@@ -144,7 +144,25 @@ main {
   color: white;
 }
 
-/*  ====  Mobile Resposive  ===  */
+@media only screen and (max-width: 1000px) {
+  * {
+    font-size: medium;
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  .bio {
+    display: flex;
+  }
+  .bio > .left-side {
+    display: none;
+  }
+  .gallery-item {
+    width: 60%;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   * {
     font-size: medium;
