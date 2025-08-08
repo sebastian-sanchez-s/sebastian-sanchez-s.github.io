@@ -12,7 +12,7 @@ body {
   margin: 0;
 }
 
-.navbar {
+header {
   display: flex;
   flex-direction: row;
   height: 2em;
@@ -22,7 +22,7 @@ body {
   border-bottom: 1px solid darkcyan;
 }
 
-.navbar > a {
+header > a {
   display: block;
   height: 100%;
   text-align: center;
@@ -31,11 +31,10 @@ body {
   color: white;
 }
 
-
 main {
   display: grid;
   padding: 1em;
-  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr auto;
   background-color: #0C0A00;
 }
 
@@ -126,21 +125,18 @@ main {
   border: 2px solid cyan;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
+footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start; 
   height: 1.5em;
   width: 100%;
-  margin: 0;
   background-color: black;
   border-top: 1px solid darkcyan;
 }
 
-.footer a {
+footer a {
   color: white;
 }
 
