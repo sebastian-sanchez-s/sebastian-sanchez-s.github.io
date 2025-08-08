@@ -22,15 +22,16 @@
 <section id="coding-adventures">
 <h1>Coding Adventures</h1>
 <div class ="gallery">
-  {% for title, filename in [
-    ('Model View Projection', 'ModelViewProjection'),
-    ('The Heat Method for Distance Computation', 'HeatMethodBackup'),
-    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian')
+  {% for title, filename, image in [
+    ('[🚧] Poisson Surface Reconstruction', 'PoissonSurfaceRecon', 'placeholder'),
+    ('Model View Projection', 'ModelViewProjection', 'ModelViewProjection'),
+    ('The Heat Method for Distance Computation', 'HeatMethod', 'HeatMethodBackup'),
+    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian', 'DiscreteLaplacian')
   ]%}
   <div class="gallery-item">
     <a href="coding/{{ filename }}.html">
       <p>{{ title }}</p>
-      <img src="images/{{ filename}}.png"/>
+      <img src="images/{{ image }}.png"/>
     </a>
   </div>
   {% endfor %}
@@ -41,7 +42,7 @@
 <h1>Math Adventures</h1>
 <div class="math-list">
   {% for title, filename in [
-    ('Simplicial Homology and Cohomology', 'simplicial_homology_and_cohomology'),
+    ('[🚧] Simplicial Homology and Cohomology', 'simplicial_homology_and_cohomology'),
   ]%}
   <a href="math/{{ filename }}.html">{{ title }}</a>
   {% endfor %}
