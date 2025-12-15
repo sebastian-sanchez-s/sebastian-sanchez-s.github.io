@@ -46,6 +46,10 @@ main {
   align-items: center;
 }
 
+.bio a {
+  text-decoration: underline gray;
+}
+
 .bio > .left-side {
   display: flex;
   align-items: center;
