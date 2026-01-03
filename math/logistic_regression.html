@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Understanding Logistic Regression</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Understanding Logistic Regression</h1>
+</header>
+<p>Suppose we want to label an object in any of <span
+class="math inline">\(N\)</span> categories. The relevant information of
+the object is summarized in a vector with <span
+class="math inline">\(d\)</span> entries. Then, one can state the
+problem as: find a function <span class="math inline">\(f: R^d \to
+R^N\)</span> such that the <span class="math inline">\(i\)</span>-entry
+of <span class="math inline">\(f(X)\)</span> is the probability to label
+<span class="math inline">\(X\)</span> in the <span
+class="math inline">\(i\)</span> category.</p>
+<p>In order to find such a function, we need samples <span
+class="math inline">\((X^k, Y^k)\)</span>, <span
+class="math inline">\(k=1,\ldots, K\)</span>, to learn from. For now,
+the following conditions arise:</p>
+<ol type="1">
+<li><p><span class="math inline">\(f(X) \ge 0\)</span> and <span
+class="math inline">\(f(X)\cdot 1 = 1\)</span>.</p></li>
+<li><p><span class="math inline">\(f(X^k) = p^k\)</span> should peak
+only in the coordinate <span class="math inline">\(\argmax_{i}
+Y^{k}_i\)</span>. This is handled by the information theoretic entropy,
+acting on <span class="math inline">\(p=f(X)\)</span>; maximizing this
+formula means that we want all probabilities to be as close to zero
+unless it is necessary. <span class="math display">\[
+H(p) = \sum_{i=1}^{N} p_i \log(1/p_i).
+\]</span></p></li>
+<li><p>The probability <span class="math inline">\(p^k\)</span> should
+match the data. Pure interpolation, <span class="math inline">\(p^k_i =
+Y^k_i\)</span>, does not make much sense since samples are random.
+Instead, we should ask for something more structural, such as matching
+the expected value of each coordinate <span
+class="math inline">\(i\)</span> between the prediction and the
+empirical data. <span class="math display">\[
+\sum_{k} p^k_i X^k_i = \sum_{k} Y^k_i X^k_i
+\quad
+(i=1:N).
+\]</span></p></li>
+</ol>
+<p>This is enough to propose an optimization problem:</p>
+<p><span class="math display">\[
+\left\{
+\begin{aligned}
+    \max \quad &amp;\sum_{k=1}^{K} \sum_{i=1}^{N} p^k_i \log(1/p^k_i)
+    \\
+    \textup{s.t.}\quad
+    &amp; p^k_i \ge 0 &amp;&amp;\quad (i=1:N, k=1:K)\\
+    &amp; \sum_{i} p^k_i = 1 &amp;&amp;\quad (k=1:K)\\
+    &amp; \sum_{k} p^k_i X^k_i = \sum_{k} Y^k_i X^k_i &amp;&amp;\quad
+(i=1:N)
+\end{aligned}
+\right.
+\]</span></p>
+<p>The Lagrangian reads <span class="math display">\[
+    L(p, a, b) =
+    -\sum_{k=1}^{K} \sum_{i=1}^{N} p^k_i \log(p^k_i)
+    +
+    \sum_{k=1}^{K} a_k (\sum_{i=1}^{N} p^k_i - 1)
+    +
+    \sum_{i=1}^{N} b_i (\sum_{k=1}^{N} p^k_i X^k_i - Y^k_i X^k_i),
+\]</span> and the first order conditions <span class="math display">\[
+    0
+    = \partial_{p^k_i} L
+    = -\log(p^k_i) - 1 + a_k + b_i X^k_i
+\]</span> implies that <span class="math display">\[
+    p^k_i = \exp(b_i X^K_i + a_k - 1).
+\]</span> Next, <span class="math display">\[
+    1
+    = \sum_{i=1}^{N} p^k_i
+    = \sum_{i=1}^{N} \exp(b_i X^k_i + a_k - 1)
+    = e^{a_k-1} \sum_{i=1}^{N} \exp(b_i X^k_i).
+\]</span> Hence, <span class="math display">\[
+    p^k_i
+    = \exp(b_i X^k_i + a_k - 1)
+    = \frac{\exp(b_i X^k_i)}{\sum_{j=1}^{N} \exp(b_j X^k_j)}.
+\]</span></p>
+<p>This gives us a nice ansatz for <span
+class="math inline">\(f\)</span>. All we need to do is set <span
+class="math display">\[
+    f_b(X)
+    = \frac{e^{b_i X_i}}{\sum_{j=1}^N e^{b_j X_j}}
+    = \frac{1}{1 + \sum_{j\ne i} e^{b_j X_j}}
+\]</span> and find the coefficients that match <span
+class="math inline">\(p^k_i\)</span>.</p>
+</body>
+</html>
