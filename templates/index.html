@@ -2,25 +2,38 @@
 
 {% block body %}
 <main>
-<section id="bio-section">
-  <div class="bio">
+<section class="bio">
     <div class="left-side">
       <img src="./images/profile2.jpg">
+      <div class="icons">
+        <a class="icon" href="https://www.linkedin.com/in/sebasti%C3%A1n-s%C3%A1nchez-s/">
+          <i class="fa fa-linkedin"></i>
+        </a>
+        <a class="icon" href="https://github.com/sebastian-sanchez-s/">
+          <i class="fa fa-github"></i>
+        </a>
+      </div>
     </div>
     <div class="right-side">
       <p>
-      Welcome to my website, here you will find the mathematical aspects of
-      nice applications, mostly in <strong>geometry processing</strong>.
+      Welcome to my website. I'm Sebastián Sánchez.
+      Here I post the mathematical aspects of
+      nice applications, mostly in <strong>geometry processing</strong>
+      and <strong>statistic and data science</strong>.
       </p>
 
       <p>
-      I have a Master's degree in applied math (<a href="">thesis</a>) 
-      and a Bachelor's degree in pure math.
+      I did my master in applied math studying approximation
+      of operators between infinite dimensional spaces and its
+      application to the operator learning problem.
+      Previously, I earned by Bachelors degree in pure math
+      (with a minor in computer science).
+      My undergrad project was on surface reconstruction from
+      unorganized points.
       </p>
 
       <a href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDhaR6wt5tORI4oJCgZaJWfATFwpMnW_hKhTQ5DoJEL5yQ?e=1ldxvB" target="_blank">CV (spanish)</a>
       <a href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDbNrlHv6vzQahEQlJMHGZ8AUBb41HDd6Bzt9pXX4rZ6T8?e=gAnfCt">CV (english) </a>
-    </div>
   </div>
 </section>
 
@@ -30,14 +43,12 @@
   {% for title, filename, image in [
     ('Model View Projection', 'ModelViewProjection', 'ModelViewProjection'),
     ('The Heat Method for Distance Computation', 'HeatMethod', 'HeatMethodBackup'),
-    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian', 'DiscreteLaplacian')
+    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian', 'DiscreteLaplacian'),
   ]%}
-  <div class="gallery-item">
-    <a href="coding/{{ filename }}.html">
-      <p>{{ title }}</p>
-      <img src="images/{{ image }}.png"/>
-    </a>
-  </div>
+  <a class="gallery-item" href="coding/{{ filename }}.html">
+    <p>{{ title }}</p>
+    <img src="images/{{ image }}.png"/>
+  </a>
   {% endfor %}
 </div>
 </section>
@@ -46,7 +57,7 @@
 <h1>Math adventures</h1>
 <div class="math-list">
   {% for title, filename in [
-    ('Understanding Logistic Regression', 'logistic_regression'),
+    ('An explanation of the Logistic Regression formula', 'logistic_regression'),
   ]%}
     <a href="math/{{ filename }}.html">
       <p>{{ title }}</p>
@@ -55,5 +66,6 @@
 </div>
 </section>
 </main>
+
 {% endblock %}
 

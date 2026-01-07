@@ -10,37 +10,26 @@ a {
 
 body {
   margin: 0;
-}
-
-header {
-  display: flex;
-  flex-direction: row;
-  height: 2em;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color: black;
-  border-bottom: 1px solid darkcyan;
-}
-
-header > a {
-  display: block;
-  height: 100%;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  color: white;
+  background-color: #0C0A00;
 }
 
 main {
   display: grid;
-  padding: 1em;
-  grid-template-rows: 1fr 2fr auto;
-  background-color: #0C0A00;
+  gap: 1em;
+  width: 80%;
+  margin: auto;
+  grid-template-areas:
+  "B B B"
+  "C C M"
+  "C C M";
+  justify-content: space-evenly;
 }
 
 .bio {
+  grid-area: B;
   display: grid;
   grid-template-columns: 1fr 3fr;
+  width: 100%;
   height: 30%;
   justify-items: center;
   align-items: center;
@@ -52,43 +41,57 @@ main {
 
 .bio > .left-side {
   display: flex;
+  flex-direction: column;
+  gap: .5em;
   align-items: center;
   justify-content: center;
 }
 
 .bio > .left-side > img {
-  width: 50%;
+  width: 55%;
   border-radius: 50%;
-  border: 3px solid lightgray;
+  border: 2px solid gray;
+}
+
+.bio > .left-side .icons {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.bio > .left-side .icons .icon {
+  font-size: x-large;
+}
+
+#coding-adventures {
+  grid-area: C;
+  text-align: center;
+  height: min-content;
+}
+
+#math-adventures {
+  text-align: center;
+  grid-area: M;
 }
 
 .gallery {
   display: flex;
   flex-direction: row;
-  margin: 1em;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   gap: 1em;
 }
 
 .gallery-item {
-  display: grid;
-  grid-template-rows: 1fr 4fr;
-  text-align: center;
-  width: 20%;
-  aspect-ratio: 4/5;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
   border: 2px ridge darkcyan;
-}
-
-#math-adventures .gallery-item {
-  aspect-ratio: 1;
 }
 
 .gallery-item img {
   width: 100%;
-  aspect-ratio: 1;
-  margin: 0;
-  padding: 0;
+  height: 200px;
 }
 
 .gallery-item  p {
@@ -127,21 +130,6 @@ main {
 
 .math-list a:hover {
   border: 2px solid cyan;
-}
-
-footer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start; 
-  height: 1.5em;
-  width: 100%;
-  background-color: black;
-  border-top: 1px solid darkcyan;
-}
-
-footer a {
-  color: white;
 }
 
 @media only screen and (max-width: 1000px) {
