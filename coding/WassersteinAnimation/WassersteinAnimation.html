@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Animaciones de Wasserstein</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Animaciones de Wasserstein</h1>
+</header>
+<p><img src="Figures/conv_wass.png" alt></img></p>
+<h1 id="introducción">Introducción</h1>
+<p>Una animación es una secuencia de objetos estáticos que dan la
+ilusión de movimiento. Para generar una animación suave desde un objeto
+<span class="math inline">\(F_0\)</span> a un objeto <span
+class="math inline">\(F_1\)</span> toca producir mucho objetos estáticos
+intermedios. En este espacio exploraremos si tal esfuerzo puede ser
+reducido al usar pocos puntos de control que guíen el movimiento del
+objeto <span class="math inline">\(F_0\)</span> al objeto <span
+class="math inline">\(F_1\)</span>, similar a como funciona una curva de
+Bezier en el plano o los <em>keyframes</em>. En específico, consideremos
+<span class="math inline">\(F_0\)</span> y <span
+class="math inline">\(F_1\)</span> sólidos en <span
+class="math inline">\(\mathbb R^2=X\)</span>. A estos les podemos
+asociar medidas de probabilidad haciendo la asociación <span
+class="math display">\[
+  F_i \in \text{ sólidos en } X
+  \leftrightarrow
+  \frac{1}{\lvert F_i \rvert} \mathbf 1_{F_0}
+  =: \mu_i \in \mathcal P(X).
+\]</span> Dicho lo anterior, sean <span class="math inline">\(\mu_0,
+\mu_1, \ldots, \mu_k\)</span> figuras en <span
+class="math inline">\(X\)</span>, donde <span
+class="math inline">\(\mu_0\)</span> representa la posición inicial y
+<span class="math inline">\(\mu_k\)</span> la final. Buscamos un camino
+de figuras parametrizado por una función <span
+class="math inline">\(\alpha \colon [0,1] \to (\mathcal P)^k\)</span>.
+En principio, podríamos tomar una ponderación ``euclideana’’ <span
+class="math display">\[
+  \mu_t = \alpha_0(t) \mu_0 + \cdots + \alpha_k(t) \mu_k,
+\]</span> sin embargo, esta no es la noción adecuada. En efecto, si
+tomamos <span class="math inline">\(\delta_x\)</span> y <span
+class="math inline">\(\delta_y\)</span>, entonces su promedio es <span
+class="math inline">\((\delta_x + \delta_y)/2\)</span> en vez de <span
+class="math inline">\(\delta_{(x+y)/2}\)</span> que es lo se esperaría
+al mover la figura. Resulta que el problema a resolver es <span
+class="math display">\[
+  \mu_t = \textup{argmin}_{\nu} \sum_{j=0}^{k} \alpha_j(t) W_2^2(\mu_j,
+\nu)
+\]</span> donde <span class="math inline">\(W_2\)</span> denota la
+distancia de Wasserstein definida más adeltante.</p>
+<p><strong>Organización del documento</strong> Comenzamos dando una
+paseo por el transporte óptimo y métodos para computarlos. Luego
+introducimos un ``kernel trick’’ para computar la distancia de
+Wasserstein y resolver el problema baricéntrico.</p>
+<p><strong>Notación</strong> Letras griegas <span
+class="math inline">\(\mu,\nu,\)</span> etc son medidas. Si <span
+class="math inline">\(\mu\)</span> es una medida, <span
+class="math inline">\(\mu\)</span> también representa su discretización
+en <span class="math inline">\(\mathbb R^n\)</span> según el contexto.
+Lo análogo pasa para medidas en el espacio producto. mathbftores en
+<span class="math inline">\(\mathbb R^n\)</span> están escritos con
+negrita i.e. <span class="math inline">\(\mathbf v, \mathbf F\)</span>.
+La notación <span class="math inline">\(\mathbf 1\)</span> es un
+mathbftor de unos de la dimensión que corresponda, salvo que tenga
+subíndice, donde es una indicatriz.</p>
+<h1 id="un-paseo-por-el-transporte-óptimo">Un Paseo por el Transporte
+Óptimo</h1>
+<p>Sea <span class="math inline">\(\mathcal P_2(X)\)</span> el espacio
+de medidas de probabilidad sobre <span class="math inline">\(X\)</span>
+con segundo momento finito. Es espacio se convierte en un espacio
+métrico al introducir la función de distancia <span
+class="math display">\[
+  W_2(\mu, \nu) \coloneqq \sqrt{\min_{\pi\in \Pi} \int d(x,y)^2
+\text{d}\pi}
+\]</span> donde <span class="math inline">\(\Pi\)</span> son las medidas
+de probabilidad sobre <span class="math inline">\(X\times X\)</span> con
+marginales <span class="math inline">\(\mu\)</span> y <span
+class="math inline">\(\nu\)</span>.</p>
+<p>Métodos directos para calcular el problema discreto se basan en
+algoritmos de grafos como el flujo máximo que toma <span
+class="math inline">\(\mathcal O(n^3)\)</span> operaciones, mientras, la
+complejidad de memoria varia entre <span class="math inline">\(\mathcal
+O(n^2)\)</span> y <span class="math inline">\(\mathcal O(2n)\)</span>
+dependiendo si se trabaja con el problema primal o dual. Método
+iterativos trabajan con una versión regularizada del problema: <span
+class="math display">\[
+  W_{2,\epsilon}(\mu, \nu)^2
+  \coloneqq
+    \min_{\pi\in\Pi} \int d(x,y)^2 \textrm{d}\pi
+  - \epsilon H(\pi),
+\]</span> donde <span class="math display">\[
+  H(\pi) := -\int \log \left( \pi \right) \textrm{d}\pi.
+\]</span> La solución a este problema adopta la forma: <span
+class="math display">\[
+  \pi = \mathbf D_{\mathbf u} \mathbf K \mathbf D_{\mathbf v},
+\]</span> donde <span class="math inline">\(\mathbf K_{xy} = \exp(
+-d(x,y)^2 / \epsilon)\)</span>, mientras que <span
+class="math inline">\(\mathbf u\)</span> y <span
+class="math inline">\(\mathbf v\)</span> son variables duales al
+problema (y desconocidas). Llamaremos a esta el ansatz de Sinkhorn.</p>
+<p>Sea <span class="math inline">\(\mathbf a\)</span> el vector de area
+asociado a la discretización, es decir, tal que <span
+class="math inline">\(\int f = \mathbf a^T \mathbf f\)</span> y <span
+class="math inline">\(\mathbf a^T \mathbf 1 = 1\)</span>. La
+conservación de masa dice que <span class="math inline">\(\pi\mathbf a =
+\mu\)</span> y que <span class="math inline">\(\pi^T \mathbf a =
+\nu\)</span>, juntándolo con el ansatz de Sinkhorn se obtiene que <span
+class="math display">\[
+  \mathbf D_{\mathbf u} \mathbf K \mathbf D_{\mathbf v} \mathbf a
+  =
+  \mathbf D_{\mathbf u} \mathbf K \mathbf v
+  =
+  \mu
+  \implies
+  \mathbf u = \frac{\mu}{\mathbf K\mathbf v}
+\]</span> sugiriendo la iteración <span class="math display">\[
+  \left\{
+  \begin{aligned}
+    \mathbf u^{(\ell+1)} &amp;= \mu / (\mathbf K \mathbf v^{(\ell)})\\
+    \mathbf v^{(\ell+1)} &amp;= \nu / (\mathbf K^T \mathbf u^{(\ell+1)})
+  \end{aligned}
+  \right.
+\]</span> conocida como el algoritmo de Sinkhorn. El algoritmo converge
+a una tasa que depende de <span class="math inline">\(\mathbf K\)</span>
+(ver el Apéndice para detalles).</p>
+<p>En la práctica, el método de Sinkhorn (al igual que el directo) son
+pesados de calcular porque dependen del cómputo de pares de distancias
+que ocupan <span class="math inline">\(\mathcal O(n^2)\)</span> espacio
+y/o son costosas de computar, como es el caso de distancias geodésicas
+en una malla triangular. Por ello, se buscan métodos para reemplazar el
+cálculo de <span class="math inline">\(d(x,y)\)</span> por
+aproximaciones más ligeras de computar.</p>
+<h1 id="el-núcleo-de-calor-para-estimaciones-métricas">El Núcleo de
+Calor para Estimaciones Métricas</h1>
+<p>El calor fluye por los caminos de mayor conductividad. Si la
+superficie tiene conductividad uniforme, los caminos de mayor
+conductividad corresponden con los caminos geodésicos. Consideremos la
+ecuación del calor con fuente puntual: <span class="math display">\[
+  \left\{
+  \begin{aligned}
+    \dot u(x, t) - \Delta u(x, t) &amp;= 0 \qquad (x,t) \in \mathbb
+R^3\times (0,\infty)\\
+    u(x,0) &amp;= \delta_{x_0} \qquad x\in \mathbb R^3
+  \end{aligned}
+  \right.
+\]</span> la solución es $u(x,t) = (4t)^{-3/2} ( -d(x_0, x)^2 / (4t) )
+$. En general, una solución a la ecuación del calor con lado derecho
+<span class="math inline">\(f\)</span> se puede escribir como <span
+class="math display">\[
+  u(x,t) = \int \mathcal K_{t}(x,y) f(y) \textrm{d}{y},
+\]</span> donde <span class="math inline">\(\mathcal K_t(x,y) = (4\pi
+t)^{-3/2} \exp \left( -d(x,y)^2 / (4t) \right)\)</span> es el .
+Despejando del núcleo se obtiene que Es decir, podemos estimar la
+distancia a través del núcleo de calor. Explícitamente, se usa la
+fórmula de Varadhan <span class="math display">\[
+  d(x,y)^2 = \lim_{t\to 0} -4t\log\mathcal K_t(x,y),
+\]</span> donde la convergencia es uniforme en <span
+class="math inline">\(x\)</span> y <span
+class="math inline">\(y\)</span>; y la distancia es la de la variedad
+inducida por los coeficientes del operador espacial. En particular, si
+<span class="math inline">\(X\)</span> es una variedad Riemanniana y
+<span class="math inline">\(-\Delta\)</span> el operador de
+Laplace-Beltrami, entonces <span class="math inline">\(d(x,y)\)</span>
+es la distancia geodésica en <span class="math inline">\(X\)</span>.</p>
+<p>Tomando <span class="math inline">\(t=\epsilon/4\)</span> en las
+ecuaciones anteriores nos deja con: <span class="math display">\[
+\begin{aligned}
+  W_{2,\epsilon}(\mu,\nu)^2
+  &amp;=
+  \min_{\pi} \int d(x,y)^2 \textrm{d}{\pi} - \epsilon H(\pi)
+  \\&amp;\approx
+  \min_{\pi} \int -4t\log\mathcal K_t(x,y) + \epsilon \log \pi
+\textrm{d}{\pi}
+  \\&amp;=
+  \min_{\pi} \epsilon \int
+  \left[
+    \log \frac{\pi(x,y)}{\mathcal K_t(x,y)}
+    -1
+  \right]
+  \textrm{d}{\pi}
+  + \epsilon
+  \\&amp;=
+  \epsilon \left( 1 + \min_{\pi} KL(\pi \mid \mathcal K_t) \right)
+  \\&amp;\eqqcolon W_{2,\mathcal K_t}^2.
+\end{aligned}
+\]</span> donde <span class="math inline">\(KL\)</span> es la
+divergencia de Kullback-Leibler dada por $$</p>
+<p>KL() := <em>{ij} </em>{ij} a_i a_j ( - 1 ) <span
+class="math display">\[
+en el caso discreto y por
+\]</span> KL() := ( ) - 1 $$ en el caso continuo. Por lo tanto, el
+problema se reduce al de encontrar la mejor proyección de <span
+class="math inline">\(\mathcal K_t\)</span> en <span
+class="math inline">\(\Pi\)</span>.</p>
+<p>Similar a lo que pasa con el problema regularizado usual,
+tenemos:</p>
+<p><strong>Lema</strong> Si <span class="math inline">\(\pi\)</span> es
+solución del problema kernelizado entonces <span
+class="math inline">\(\pi = \mathbf D_{\mathbf u}
+  \mathcal K_t \mathbf D_{\mathbf v}\)</span> para vectores <span
+class="math inline">\(\mathbf u\)</span> y <span
+class="math inline">\(\mathbf v\)</span> desconocidos que satisfacen:
+<span class="math display">\[
+  \left\{
+  \begin{aligned}
+    \mathbf D_{\mathbf v} \mathcal K_t \mathbf D_{\mathbf u} \mathbf a
+&amp;= \mu\\
+    \mathbf D_{\mathbf u} \mathcal K_t \mathbf D_{\mathbf v} \mathbf a
+&amp;= \nu\\
+  \end{aligned}
+  \right.
+  \]</span></p>
+<p><strong>Demostración</strong></p>
+<p>Definamos el Lagrangiano <span class="math inline">\(L(\mathbf f,
+\mathbf g, \pi) = KL(\pi\mid \mathcal K_t) -
+  \langle \mathbf f, \pi \mathbf a - \mu \rangle - \langle \mathbf g,
+\pi^T\mathbf a - \nu \rangle\)</span>. Entonces, Despejando obtenemos
+que <span class="math inline">\(\pi_{ij} = e^{\mathbf f_i/\mathbf a_i}
+(\mathcal K_t)_{ij} e^{\mathbf g_j/\mathbf a_j}\)</span>. El resto de
+relaciones se siguen de la conservación de masa.</p>
+<p><strong>Fin demostración</strong></p>
+<h1 id="proyecciones-iteradas-de-bregman">Proyecciones Iteradas de
+Bregman</h1>
+<p>Las proyecciones iteradas de Bregman aplicadas al transporte óptimo
+se usan para resolver problemas de la forma <span
+class="math display">\[
+  \min_{\gamma\in C} KL(\gamma \mid \xi)
+\]</span> donde <span class="math inline">\(C = \bigcap_{i=1}^{\ell}
+C_i\)</span> es intersección finita de conjuntos convexos cerrados. En
+específico, cuando todos los <span class="math inline">\(C_i\)</span>
+son espacios afines la iteración toma la forma: <span
+class="math display">\[
+\left\{
+\begin{aligned}
+  \gamma^{(0)} &amp;= \xi\\
+  \gamma^{(n+1)} &amp;= \textup{argmin}_{\gamma \in C_n} KL(\gamma \mid
+\gamma^{(n)})
+  \quad n &gt; 0
+\end{aligned}
+\right.
+\]</span> donde usamos notación cíclica para <span
+class="math inline">\(C_n\)</span> i.e. <span
+class="math inline">\(C_{n} = C_{n+\ell}\)</span>. Recordemos que <span
+class="math inline">\(W_{2,\mathcal K_t}^2\)</span> es equivalente a
+resolver <span class="math display">\[
+  \min_{\pi \in \Pi} KL(\pi \mid \mathcal K_t).
+\]</span> Observese que <span class="math inline">\(\Pi\)</span> es la
+intersección de conjunto convexos cerrados, en efecto, <span
+class="math display">\[
+  \Pi
+  = \lbrace \pi \mathbf a = \mu \rbrace \cap \lbrace \pi^T \mathbf a =
+\nu \rbrace
+  = C_1 \cap C_2.
+\]</span> Por lo tanto, puede ser resuelto mediante proyecciones
+iteradas de Bregman. De hecho, obtenemos formas explícitas:</p>
+<p><strong>Lema</strong> Si <span class="math inline">\(\pi =
+\textup{argmin}_{\pi\in C_1} KL(\pi\mid \xi)\)</span> entonces <span
+class="math inline">\(\pi = \mathbf D_{\mathbf u} \xi\)</span> con <span
+class="math inline">\(\mathbf u = \mu / (\xi \mathbf a)\)</span>. % De
+hecho, <span class="math inline">\(\mathbf u = \exp \left( \mathbf
+f/\mathbf a \right)\)</span> donde <span class="math inline">\(\mathbf
+f\)</span> es la variable % dual del problema (desconocida).</p>
+<p><strong>Demostración</strong> Análoga a la demostración del último
+lema con el Lagrangiano <span class="math inline">\(L(\pi,\mathbf u) =
+KL(\pi\mid \xi) -
+  \langle \mathbf u, \pi \mathbf a - \mu \rangle\)</span>. La formula
+para <span class="math inline">\(\mathbf u\)</span> se obtiene de la
+conservación de masa de <span class="math inline">\(C_1\)</span>.</p>
+<p><strong>Fin demostración</strong></p>
+<p><strong>Lema</strong> Si <span class="math inline">\(\pi =
+\textup{argmin}_{\pi\in C_2} KL(\pi\mid\xi)\)</span> entonces <span
+class="math inline">\(\pi = \xi \mathbf D_{\mathbf v}\)</span> donde
+<span class="math inline">\(\mathbf v = \nu / (\xi^T \mathbf
+a)\)</span>.</p>
+<h1 id="el-problema-baricéntrico">El Problema Baricéntrico</h1>
+<p>El problema baricéntrico corresponde a <span class="math display">\[
+\begin{aligned}
+  \min \quad&amp;\alpha_0 W_2^2(\mu_0, \mu) + \cdots + \alpha_k
+W_2^2(\mu_k, \mu)\\
+  \text{tal que} \quad&amp;\mu \in \mathcal P_2(X).
+\end{aligned}
+\tag{B}
+\]</span> Reemplazando~(Wc) obtenemos un problema equivalentemente
+aproximado <span class="math display">\[
+\begin{aligned}
+  \min_{\mu} \sum_{i=1}^{k} \alpha_i W_{2,\mathcal K_t}^2(\mu, \mu_i)
+  &amp;\approx
+  \min_{\mu} \epsilon \sum_{i=1}^{k} \alpha_i (1 +
+\min_{\pi\in\Pi(\mu,\mu_i)} KL(\pi \mid \mathcal K_t)).
+  \\&amp;\approx
+   \epsilon\lvert\alpha\rvert + \min_{\mu} \sum_{i=1}^{k} \alpha_k
+\min_{\pi\in\Pi(\mu,\mu_i)} KL(\pi \mid \mathcal K_t).
+\end{aligned}
+\]</span> Por lo que un problema equivalente es <span
+class="math display">\[
+  \min_{\mu} \sum_{i=1}^{k} \alpha_k \min_{\pi\in\Pi(\mu,\mu_i)} KL(\pi
+\mid \mathcal K_t),
+\]</span> y puede ser reescrito de la siguiente forma: <span
+class="math display">\[
+\begin{aligned}
+  \min\quad &amp; \sum_{i=0}^{k} \alpha_i KL(\pi_j \mid \mathcal K_t)\\
+  \text{tal que}\quad
+  &amp; \pi_j^T \mathbf a = \mu_j \qquad j=1,\ldots, k\\
+  &amp; \pi_j \mathbf a = \pi_1 \mathbf a \qquad j=1,\ldots, k
+\end{aligned}.
+\]</span> Resulta que las iteraciones de Bregman también se pueden
+aplicar a este problema. Definamos <span class="math display">\[
+  KL_{\alpha}((\pi_j)_{j=0}^{k}\mid \mathcal K_t)
+  := \sum_{i=0}^{k} \alpha_i KL(\pi_j \mid \mathcal K_t)
+\]</span> y los conjuntos de restricciones <span
+class="math inline">\(C_1 = \lbrace (\pi_j)_{j=0}^{k} \colon \pi_j^T
+\mathbf a = \mu_j \rbrace\)</span> y <span class="math inline">\(C_2 =
+\lbrace (\pi_j)_{j=0}^{k} \colon \pi_j \mathbf a = \pi_1\mathbf a
+\rbrace\)</span>. Entonces, el problema baricéntrico es equivalente a
+resolver: <span class="math display">\[
+\left\{
+\begin{aligned}
+  \min \quad &amp; KL_{\alpha}((\pi_j)_{j=0}^{k}, \mathcal K_t)\\
+  \text{tal que}\quad &amp; (\pi_j)_{j=0}^{k} \in C_1\cap C_2.
+\end{aligned}
+\right.
+\]</span> Resulta que este problema también se puede resolver usando
+iteraciones de Bregman y las demostraciones son análogas a las ya vistas
+en los lemas.</p>
+<p><strong>Lema</strong> Sea <span
+class="math inline">\((\pi_j^{(1)})_{j=0}^{k}\)</span> la proyección de
+<span class="math inline">\(\xi\)</span> a <span
+class="math inline">\(C_1\)</span>, entonces <span
+class="math inline">\(\pi_j^{(1)} = \xi \mathbf D_{\mu_j / (\xi_j^T
+\mathbf a)}\)</span>.</p>
+<p>Salvo el siguiente, este si requiere un poco más de trabajo.
+<strong>Lema</strong> Sea <span
+class="math inline">\((\pi_j^{(2)})_{j=0}^{k}\)</span> la proyección de
+<span class="math inline">\(\xi\)</span> a <span
+class="math inline">\(C_2\)</span>, entonces <span
+class="math inline">\(\pi_j^{(2)} = \mathbf D_{q} \xi\)</span> donde
+<span class="math inline">\(q = (\xi \mathbf a)^{\lvert \alpha \rvert} /
+(\xi\mathbf a)\)</span>.</p>
+<p><strong>Demostración</strong> Definimos <span
+class="math inline">\(L((\pi_j)_j, (\mathbf g_j)) = \sum_{j} \alpha_j
+KL(\pi_j\mid \xi) -
+  \langle \mathbf g_j, \pi_j\mathbf a - p \rangle\)</span> donde <span
+class="math inline">\(p\)</span> es la marginal común (desconocida).
+Luego, las condiciones de primer orden son: <span
+class="math display">\[
+    0
+    = \partial_{\pi_{j,rs}} L
+    = \alpha_j \mathbf a_r \mathbf a_s \log \left(
+\frac{\pi_{j,rs}}{\xi_{rs}} \right) - \mathbf g_{j,r} \mathbf a_s.
+  \]</span> De donde se obtiene que <span class="math inline">\(\pi_j =
+D_{\mathbf u_j}^{1/\alpha_j} \xi\)</span> con <span
+class="math inline">\(\mathbf u_j = \exp \left(
+  \mathbf g_j / \mathbf a \right)\)</span>.Luego, <span
+class="math display">\[
+    \prod_j \mathbf u_j
+    = \exp \left( \frac{\sum_{j} \mathbf g_j}{\mathbf a} \right)
+    = \left( \frac{p}{\xi \mathbf a} \right)^{\lvert \alpha \rvert}.
+  \]</span></p>
+<p><strong>Fin demostración</strong></p>
+<h1 id="experimentos">Experimentos</h1>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th
+style="text-align: center;"><img src="Figures/conv_wass_00.png" alt></img></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Fig 1. Interpolación lineal a trozos.
+Primera fila: los tres estados interpolados. Segunda fila: interpolación
+entre estado uno y dos. Tercera fila: interpolación entre estado dos y
+tres.</td>
+</tr>
+</tbody>
+</table>
+<p>Consideremos la situación del movimiento de ``figuras de palo’’. Para
+la primera situación, intentamos mover una figura de palo desde el lado
+izquierdo al lado derecho de tal forma que le agregamos un vestido y la
+posición intermedia es una bola. Los resultados en la Figura~1
+representan una animación hecha con interpolación lineal entre cada
+estado. La Figura~2 muestra una curva de Bezier cúbica usando como
+control a la bola levitante.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th
+style="text-align: center;"><img src="Figures/conv_wass_00_cubic.png" alt></img></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Fig 2. Interpolación cúbica usando como
+control la primera fila de la Figura 1.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="conclusiones">Conclusiones</h1>
+<p>Se observan discontinuidades y rupturas en la animación que no son
+deseables en todas las animaciones. Intuitivamente el problema está en
+considerar la distancia en el espacio ambiente en vez de la distancia de
+los objetos i.e. la métrica Riemanniana asociada. Un trabajo futuro
+sería poder integrar el componente geométrico de cada objeto.</p>
+<h1 id="bibliografía">Bibliografía</h1>
+<ol type="1">
+<li>L. Evans, 2022. Partial differential equations (Vol. 19). American
+Mathematical Society.</li>
+<li>S. R. S Varadhan, 1967. On the behavior of the fundamental heat
+equation with variable coefficients. Communications of Pure and Applied
+Mathematics, Vol. XX, p. 431-455.</li>
+<li>J. Solomon and F. De Goes and G. Peyré and M. Cuturi and A. Butscher
+and A. Nguyen and T. Du and L. Guibas, 2015. Convolutional wasserstein
+distances: Efficient optimal transportation on geometric domains.</li>
+<li>J. D. Benamou and G. Carlier and M. Cuturi and L. Nenna and G.
+Peyré, 2015. ITERATIVE BREGMAN PROJECTIONS FOR REGULARIZED
+TRANSPORTATION PROBLEMS. SIAM J. SCI. COMPUT. Vol. 37, No. 2,
+pp. A1111–A1138</li>
+<li>Bregman, L.M., 1967. The relaxation method of finding the common
+point of convex sets and its application to the solution of problems in
+convex programming. USSR computational mathematics and mathematical
+physics, 7(3), pp.200-217.</li>
+<li>Joel Franklin and Lens Lorenz, 1989. On the Scaling of
+Multidimensional Matrices. Linear Algebra and its applications
+114/115:717-735.</li>
+<li>Garrett Birkhoff, 1959. Extensions of Jentzsch’s Theorem.
+Transactions of the American Mathematical Society, Vol. 85, No. 1 (May,
+1957), pp. 219-227</li>
+</ol>
+<h1 id="apéndice">Apéndice</h1>
+<h2 id="convergencia-método-de-sinkhorn">Convergencia Método de
+Sinkhorn</h2>
+<p>La demostración es de Franklin et al (ref 7) y consiste en mostrar
+que la iteración de Sinkorn es una contracción bajo una métrica
+adecuada. A partir de eso deduciremos que tenemos la convergencia para
+alguna norma en <span class="math inline">\(\mathbb R^n\)</span>. En
+específico, sobre el cono <span class="math inline">\(C = \mathbb
+R^{n}_{+}\)</span> se define la distancia de Hilbert proyectiva <span
+class="math display">\[
+  d_H(\mathbf u, \mathbf v)
+  :=
+  \lVert \log(\mathbf u) - \log(\mathbf v) \rVert_{var}
+\]</span> donde <span class="math inline">\(\lVert \mathbf f
+\rVert_{var} = \max_{i} \mathbf f_i - \min_i \mathbf f_i\)</span>. El
+cono proyectivizado <span class="math inline">\(\hat C = C/\sim\)</span>
+es un espacio métrico completo con <span
+class="math inline">\(d_H\)</span>. Notar que <span
+class="math display">\[
+  d_H(\mathbf u, \mathbf v) = \log \max_{i,j} \frac{\mathbf u_i \mathbf
+v_j}{\mathbf u_j \mathbf v_i}.
+\]</span> que será una caracterización útil.</p>
+<p>Para una matriz positiva <span class="math inline">\(\mathbf K \in
+\mathbb R^{n\times n}_{+}\)</span> definimos el textup{diam}étro de su
+imagen en <span class="math inline">\(C\)</span> como: <span
+class="math display">\[
+  \textup{diam}(\mathbf K)
+  :=
+  \sup
+  \left\{
+    d_H\left( \mathbf K \mathbf u, \mathbf K \mathbf v) \colon \mathbf
+u, \mathbf v \in C \right)
+  \right\},
+\]</span> y su contractivilidad <span class="math display">\[
+  \kappa(\mathbf K)
+  \coloneqq
+  \sup
+  \left\{
+    \frac{d_H(\mathbf K \mathbf u, \mathbf K \mathbf v)}{d_H(\mathbf u,
+\mathbf v)}
+    \colon
+    \mathbf u \ne \mathbf v \in \hat C
+  \right\}.
+\]</span></p>
+<p><strong>Lema</strong> Las matrices positivas son contracciones en
+<span class="math inline">\(\hat C\)</span>.</p>
+<p><strong>Demostración</strong> Se sigue del Lema 1 de~. Este dice que
+<span class="math inline">\(\kappa(\mathbf K) \le \tanh \left(
+\textup{diam}(K) / 4 \right) &lt; 1\)</span>.</p>
+<p>Sean <span class="math inline">\(\mathbf u^{\ast}\)</span> y <span
+class="math inline">\(\mathbf v^{\ast}\)</span> los vectores duales
+óptimos del problema de transporte kernelizado descritos en.</p>
+<p><strong>Lema</strong> <span class="math inline">\((\mathbf u^{\ell},
+\mathbf v^{\ell}) \to (\mathbf u^{\ast}, \mathbf v^{\ast})\)</span> en
+el sentido de <span class="math inline">\(d_H\)</span>.</p>
+<p><strong>Demostración</strong> Basta ver que la iteración de Sinkhorn
+es una contracción: <span class="math display">\[
+    d_H\left(
+      \frac{\mu}{\mathbf K^T\mathbf v^{(\ell)}},
+      \frac{\mu}{\mathbf K^T\mathbf v^{\ast}}
+    \right)
+    =
+    d_H\left( \mathbf K^T \mathbf v^{\ast}, \mathbf K^T \mathbf
+v^{(\ell)} \right)
+    \le
+    \kappa(K^T) d_H(\mathbf v^{\ast}, \mathbf v^{(\ell)}).
+  \]</span></p>
+<h1 id="convergencia-proyecciones-iteradas-de-bregman">Convergencia
+Proyecciones Iteradas de Bregman</h1>
+<p>Esta parte está basada en Bregman (ref 5).</p>
+<p>Sea <span class="math inline">\(S\)</span> un conjunto convexo en
+<span class="math inline">\(\mathbb R^n\)</span> y <span
+class="math inline">\(C_j\)</span> un conjunto convexo para cada <span
+class="math inline">\(j\in J\)</span>, donde <span
+class="math inline">\(J\)</span> es un conjunto de índices. Suponemos
+que <span class="math inline">\(C = \bigcap_{j\in J} C_j \ne
+\varnothing\)</span>. Sea <span class="math inline">\(f(x) = -\sum_i x_i
+\log x_i \in C^1(S) \cap C(\overline S)\)</span> que es estrictamente
+convexa. Definamos <span class="math display">\[
+  D(x,y)
+  :=
+  f(x) - f(y) - \langle \nabla f(y), x - y \rangle
+  = \sum_i y_i - x_i + x_i \log\frac{x_i}{y_i}.
+\]</span> Dado <span class="math inline">\(y\in S\)</span>, estamos
+interesados en calcular: <span class="math display">\[
+  \min\quad D(x,y) \quad \text{tal que}\quad x\in C.
+\]</span> Para ello, se propone la siguiente iteración: <span
+class="math display">\[
+\left\{
+\begin{aligned}
+  x^0 &amp;= y\\
+  x^j &amp;= \textup{argmin}_{x\in C_j} D(x,x^{j-1})
+\end{aligned}
+\right.
+\]</span></p>
+<p><strong>Lema</strong> El conjunto <span class="math inline">\(\lbrace
+x^j \rbrace\)</span> es compacto.</p>
+<p><strong>Demostración</strong> Mostraremos que <span
+class="math inline">\(\lbrace x^j\rbrace\)</span> es acotada.</p>
+<p>Sea <span class="math inline">\(x\in C \cap S\)</span> y denotemos
+por <span class="math inline">\(P_j\colon S\to C_j\)</span> a la
+proyección de <span class="math inline">\(S\)</span> en <span
+class="math inline">\(C_j\)</span>. Entonces~[5], En particular, <span
+class="math display">\[
+    D(x, x^{j+1}) + D(x^{j+1}, x^j) \le D(x, x^j).
+  \]</span> Por lo que <span class="math inline">\(D(x, x^{j+1}) \le
+D(x, x^j)\)</span>, es decir, <span class="math display">\[
+    \lbrace x^j \rbrace \subset \lbrace y\in S\colon D(x, y) \le D(x,
+x^0) \rbrace.
+  \]</span> El último conjunto es acotadao (de hecho, compacto).</p>
+<p><strong>Lema</strong> Los puntos de adherencia de <span
+class="math inline">\(\lbrace x^j \rbrace\)</span> pertenecen a <span
+class="math inline">\(C\)</span>.</p>
+<p><strong>Lema</strong> La sucesión tiene un único punto de
+adherencia.</p>
+<h1 id="código">Código</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">Este script resuelve el problema baricéntrico</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">usando la librería de ot</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ot</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> binom</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bezier(t, n_points):</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n_points <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.array([(<span class="dv">1</span><span class="op">-</span>t), t])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> n_points <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.array([(<span class="dv">1</span><span class="op">-</span>t)<span class="op">**</span><span class="dv">2</span>, <span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>t)<span class="op">*</span>t, t<span class="op">**</span><span class="dv">2</span>])</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.array([binom(n_points, i) <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>t)<span class="op">**</span>(n_points<span class="op">-</span>i) <span class="op">*</span> t<span class="op">**</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_points)]) </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> img2bw(filenames, shape<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39; return black and white version of images &#39;&#39;&#39;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> filename <span class="kw">in</span> filenames:</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        img <span class="op">=</span> Image.<span class="bu">open</span>(filename).convert(<span class="st">&#39;1&#39;</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        results.append(np.array(img <span class="cf">if</span> shape <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> img.resize(shape)).astype(<span class="bu">int</span>))</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>filenames <span class="op">=</span> [<span class="st">&#39;stickman_00.png&#39;</span>, <span class="st">&#39;stickman_01.png&#39;</span>, <span class="st">&#39;stickman_02.png&#39;</span>]</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>mu_k <span class="op">=</span> []</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> filenames:</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> Image.<span class="bu">open</span>(PATH_FIG <span class="op">/</span> <span class="bu">file</span>).convert(<span class="st">&#39;1&#39;</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    mu_k.append(<span class="dv">1</span> <span class="op">-</span> np.array(img))</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    mu_k[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> mu_k[<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> np.<span class="bu">sum</span>(mu_k[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>mu_k <span class="op">=</span> np.array(mu_k)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>n_frames <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> <span class="fl">0.002</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.eye(<span class="bu">len</span>(mu_k))</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(ncols<span class="op">=</span>n_frames<span class="op">+</span><span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">3</span>))</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_frames<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> i<span class="op">/</span>(n_frames)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> bezier(t, <span class="dv">3</span>)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> v <span class="op">@</span> alpha</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    ax[i].imshow(ot.bregman.convolutional_barycenter2d(mu_k, reg, w), cmap<span class="op">=</span><span class="st">&#39;Blues&#39;</span>)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    ax[i].axis(<span class="st">&#39;off&#39;</span>)</span></code></pre></div>
+</body>
+</html>

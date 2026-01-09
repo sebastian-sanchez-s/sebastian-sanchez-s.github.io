@@ -17,9 +17,9 @@
     <div class="right-side">
       <p>
       Welcome to my website. I'm Sebastián Sánchez.
-      Here I post the mathematical aspects of
-      nice applications, mostly in <strong>geometry processing</strong>
-      and <strong>statistic and data science</strong>.
+      Here I post the mathematical approach to some
+      applications, mostly in <strong>geometry processing</strong>
+      and <strong>statistic</strong>.
       </p>
 
       <p>
@@ -40,14 +40,15 @@
 <section id="coding-adventures">
 <h1>Coding Adventures</h1>
 <div class ="gallery">
-  {% for title, filename, image in [
+  {% for display_title, project_name, cover_name in [
+    ('Animaciones de Wasserstein', 'WassersteinAnimation', 'WassersteinAnimation'),
     ('Model View Projection', 'ModelViewProjection', 'ModelViewProjection'),
     ('The Heat Method for Distance Computation', 'HeatMethod', 'HeatMethodBackup'),
     ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian', 'DiscreteLaplacian'),
   ]%}
-  <a class="gallery-item" href="coding/{{ filename }}.html">
-    <p>{{ title }}</p>
-    <img src="images/{{ image }}.png"/>
+  <a class="gallery-item" href="coding/{{ project_name }}/{{ project_name }}.html">
+    <p>{{ display_title }}</p>
+    <img src="covers/{{ cover_name }}.png"/>
   </a>
   {% endfor %}
 </div>
@@ -56,11 +57,11 @@
 <section id="math-adventures">
 <h1>Math adventures</h1>
 <div class="math-list">
-  {% for title, filename in [
-    ('An explanation of the Logistic Regression formula', 'logistic_regression'),
+  {% for display_title, project_name in [
+    ('An explanation of the Logistic Regression formula', 'LogisticRegression'),
   ]%}
-    <a href="math/{{ filename }}.html">
-      <p>{{ title }}</p>
+    <a href="math/{{ project_name }}/{{ project_name }}.html">
+      <p>{{ display_title }}</p>
     </a>
   {% endfor %}
 </div>
