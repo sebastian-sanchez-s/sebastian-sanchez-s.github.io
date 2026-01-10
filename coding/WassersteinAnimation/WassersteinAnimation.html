@@ -382,9 +382,11 @@ class="math display">\[
   u(x,t) = \int \mathcal K_{t}(x,y) f(y) \textrm{d}{y},
 \]</span> donde <span class="math inline">\(\mathcal K_t(x,y) = (4\pi
 t)^{-3/2} \exp \left( -d(x,y)^2 / (4t) \right)\)</span> es el .
-Despejando del núcleo se obtiene que Es decir, podemos estimar la
-distancia a través del núcleo de calor. Explícitamente, se usa la
-fórmula de Varadhan <span class="math display">\[
+Despejando del núcleo se obtiene que <span class="math display">\[
+  d(x,y)^2 = -4t \log \mathcal K_t(x,y) - \frac{3}{2} 16\pi t^2.
+\]</span> Es decir, podemos estimar la distancia a través del núcleo de
+calor. Explícitamente, se usa la fórmula de Varadhan <span
+class="math display">\[
   d(x,y)^2 = \lim_{t\to 0} -4t\log\mathcal K_t(x,y),
 \]</span> donde la convergencia es uniforme en <span
 class="math inline">\(x\)</span> y <span
@@ -416,14 +418,15 @@ ecuaciones anteriores nos deja con: <span class="math display">\[
   \\&amp;\eqqcolon W_{2,\mathcal K_t}^2.
 \end{aligned}
 \]</span> donde <span class="math inline">\(KL\)</span> es la
-divergencia de Kullback-Leibler dada por $$</p>
-<p>KL() := <em>{ij} </em>{ij} a_i a_j ( - 1 ) <span
-class="math display">\[
-en el caso discreto y por
-\]</span> KL() := ( ) - 1 $$ en el caso continuo. Por lo tanto, el
-problema se reduce al de encontrar la mejor proyección de <span
-class="math inline">\(\mathcal K_t\)</span> en <span
-class="math inline">\(\Pi\)</span>.</p>
+divergencia de Kullback-Leibler dada por <span class="math display">\[
+  KL(\pi\mid \xi) := \sum_{ij} \pi_{ij} \mathbf a_i \mathbf a_j \left(
+\log \frac{\pi_{ij}}{\xi_{ij}} - 1 \right)
+\]</span> en el caso discreto y por <span class="math display">\[
+  KL(\pi \mid \xi) := \int \log \left( \frac{\pi}{\xi} \right) - 1
+\textrm{d}\pi
+\]</span> en el caso continuo. Por lo tanto, el problema se reduce al de
+encontrar la mejor proyección de <span class="math inline">\(\mathcal
+K_t\)</span> en <span class="math inline">\(\Pi\)</span>.</p>
 <p>Similar a lo que pasa con el problema regularizado usual,
 tenemos:</p>
 <p><strong>Lema</strong> Si <span class="math inline">\(\pi\)</span> es
@@ -446,10 +449,18 @@ class="math inline">\(\mathbf v\)</span> desconocidos que satisfacen:
 <p>Definamos el Lagrangiano <span class="math inline">\(L(\mathbf f,
 \mathbf g, \pi) = KL(\pi\mid \mathcal K_t) -
   \langle \mathbf f, \pi \mathbf a - \mu \rangle - \langle \mathbf g,
-\pi^T\mathbf a - \nu \rangle\)</span>. Entonces, Despejando obtenemos
-que <span class="math inline">\(\pi_{ij} = e^{\mathbf f_i/\mathbf a_i}
-(\mathcal K_t)_{ij} e^{\mathbf g_j/\mathbf a_j}\)</span>. El resto de
-relaciones se siguen de la conservación de masa.</p>
+\pi^T\mathbf a - \nu \rangle\)</span>. Entonces, <span
+class="math display">\[
+    0
+    = \partial_{\pi_{ij}} L
+    = \mathbf a_i \mathbf a_j \left( \log \frac{\pi_{ij}}{(\mathcal
+K_t)_{ij}} - 1 \right)
+    + \mathbf a_i \mathbf a_j - \mathbf f_i \mathbf a_j - \mathbf g_j
+\mathbf a_i.
+  \]</span> Despejando obtenemos que <span
+class="math inline">\(\pi_{ij} = e^{\mathbf f_i/\mathbf a_i} (\mathcal
+K_t)_{ij} e^{\mathbf g_j/\mathbf a_j}\)</span>. El resto de relaciones
+se siguen de la conservación de masa.</p>
 <p><strong>Fin demostración</strong></p>
 <h1 id="proyecciones-iteradas-de-bregman">Proyecciones Iteradas de
 Bregman</h1>
@@ -766,8 +777,10 @@ class="math inline">\(\lbrace x^j\rbrace\)</span> es acotada.</p>
 <p>Sea <span class="math inline">\(x\in C \cap S\)</span> y denotemos
 por <span class="math inline">\(P_j\colon S\to C_j\)</span> a la
 proyección de <span class="math inline">\(S\)</span> en <span
-class="math inline">\(C_j\)</span>. Entonces~[5], En particular, <span
+class="math inline">\(C_j\)</span>. Entonces~[5], <span
 class="math display">\[
+    D(P_j y, x) + D(P_j y, y) \le D(x,y).
+  \]</span> En particular, <span class="math display">\[
     D(x, x^{j+1}) + D(x^{j+1}, x^j) \le D(x, x^j).
   \]</span> Por lo que <span class="math inline">\(D(x, x^{j+1}) \le
 D(x, x^j)\)</span>, es decir, <span class="math display">\[

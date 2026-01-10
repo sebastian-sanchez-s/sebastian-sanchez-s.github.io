@@ -140,9 +140,9 @@ $$
 $$
 donde $\mathcal K_t(x,y) = (4\pi t)^{-3/2} \exp \left( -d(x,y)^2 / (4t) \right)$
 es el \textit{núcleo de calor}. Despejando del núcleo se obtiene que
-\begin{displaymath}
+$$
   d(x,y)^2 = -4t \log \mathcal K_t(x,y) - \frac{3}{2} 16\pi t^2.
-\end{displaymath}
+$$
 Es decir, podemos estimar la distancia a través del núcleo de calor. Explícitamente,
 se usa la fórmula de Varadhan
 $$
@@ -177,7 +177,6 @@ $$
 $$
 donde $KL$ es la divergencia de Kullback-Leibler dada por
 $$
-  
   KL(\pi\mid \xi) := \sum_{ij} \pi_{ij} \mathbf a_i \mathbf a_j \left( \log \frac{\pi_{ij}}{\xi_{ij}} - 1 \right)
 $$
 en el caso discreto y por
@@ -208,12 +207,12 @@ Similar a lo que pasa con el problema regularizado usual, tenemos:
   Definamos el Lagrangiano $L(\mathbf f, \mathbf g, \pi) = KL(\pi\mid \mathcal K_t) - 
   \langle \mathbf f, \pi \mathbf a - \mu \rangle - \langle \mathbf g, \pi^T\mathbf a - \nu \rangle$.
   Entonces,
-  \begin{displaymath}
+  $$
     0 
     = \partial_{\pi_{ij}} L 
     = \mathbf a_i \mathbf a_j \left( \log \frac{\pi_{ij}}{(\mathcal K_t)_{ij}} - 1 \right) 
     + \mathbf a_i \mathbf a_j - \mathbf f_i \mathbf a_j - \mathbf g_j \mathbf a_i.
-  \end{displaymath}
+  $$
   Despejando obtenemos que $\pi_{ij} = e^{\mathbf f_i/\mathbf a_i} (\mathcal K_t)_{ij} e^{\mathbf g_j/\mathbf a_j}$.
   El resto de relaciones se siguen de la conservación de masa.
 
@@ -496,9 +495,9 @@ $$
 
   Sea $x\in C \cap S$ y denotemos por $P_j\colon S\to C_j$ a la proyección
   de $S$ en $C_j$. Entonces~[5],
-  \begin{displaymath}
+  $$
     D(P_j y, x) + D(P_j y, y) \le D(x,y).
-  \end{displaymath}
+  $$
   En particular,
   $$
     D(x, x^{j+1}) + D(x^{j+1}, x^j) \le D(x, x^j).
