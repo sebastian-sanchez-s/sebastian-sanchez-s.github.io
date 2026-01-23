@@ -2,8 +2,8 @@
 
 {% block body %}
 <main>
-<section class="bio">
-    <div class="left-side">
+  <section class="bio">
+    <div class="profile-img">
       <img src="./images/profile2.jpg">
       <div class="icons">
         <a class="icon" href="https://www.linkedin.com/in/sebasti%C3%A1n-s%C3%A1nchez-s/">
@@ -12,61 +12,114 @@
         <a class="icon" href="https://github.com/sebastian-sanchez-s/">
           <i class="fa fa-github"></i>
         </a>
+        <a class="icon" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDhaR6wt5tORI4oJCgZaJWfATFwpMnW_hKhTQ5DoJEL5yQ?e=1ldxvB" target="_blank">
+          cv
+        </a>
       </div>
     </div>
-    <div class="right-side">
-      <p>
-      Welcome to my website. I'm Sebastián Sánchez.
-      Here I post the mathematical approach to some
-      applications, mostly in <strong>geometry processing</strong>
-      and <strong>statistic</strong>.
-      </p>
 
-      <p>
-      I did my master in applied math studying approximation
-      of operators between infinite dimensional spaces and its
-      application to the operator learning problem.
-      Previously, I earned by Bachelors degree in pure math
-      (with a minor in computer science).
-      My undergrad project was on surface reconstruction from
-      unorganized points.
-      </p>
+    <p>
+    Welcome. My name is Sebastián Sánchez.
+    Here you can find a <q>mathematician viewpoint</q>
+    on some topics of my interest, from
+    <strong>computer graphics</strong> to <strong>statistic</strong>.
+    </p>
 
-      <a href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDhaR6wt5tORI4oJCgZaJWfATFwpMnW_hKhTQ5DoJEL5yQ?e=1ldxvB" target="_blank">CV (spanish)</a>
-      <a href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDbNrlHv6vzQahEQlJMHGZ8AUBb41HDd6Bzt9pXX4rZ6T8?e=gAnfCt">CV (english) </a>
-  </div>
-</section>
+    <p>
+    I've earned, at Pontificia Universidad Católica de Chile, a
+    <ul>
+      <li>Master's degree in Mathematics and Computational Engineering, and</li>
+      <li>Bachelor's degree in Mathematics, with a minor in Computer Science.</li>
+    </ul>
+    </p>
 
-<section id="coding-adventures">
-<h1>Coding Adventures</h1>
-<div class ="gallery">
-  {% for display_title, project_name, cover_name in [
-    ('Animaciones de Wasserstein', 'WassersteinAnimation', 'WassersteinAnimation'),
-    ('Model View Projection', 'ModelViewProjection', 'ModelViewProjection'),
-    ('The Heat Method for Distance Computation', 'HeatMethod', 'HeatMethodBackup'),
-    ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian', 'DiscreteLaplacian'),
-  ]%}
-  <a class="gallery-item" href="coding/{{ project_name }}/{{ project_name }}.html">
-    <p>{{ display_title }}</p>
-    <img src="covers/{{ cover_name }}.png"/>
-  </a>
-  {% endfor %}
-</div>
-</section>
+    <br>
+    <blockquote>
+    At the beginning of this century a self-destructive democratic principle
+    was advanced in mathematics (especially by Hilbert), according to which
+    all axiom systems have equal right to be analyzed, and the value of a
+    mathematical achievement is determined, not by its significance and
+    usefulness as in other sciences, but by its difficulty alone, as in
+    mountaineering.
+    <br>
+    --<cite>Vladimir I. Arnold</cite>
+    </blockquote>
 
-<section id="math-adventures">
-<h1>Math adventures</h1>
-<div class="math-list">
-  {% for display_title, project_name in [
-    ('An explanation of the Logistic Regression formula', 'LogisticRegression'),
-  ]%}
-    <a href="math/{{ project_name }}/{{ project_name }}.html">
-      <p>{{ display_title }}</p>
-    </a>
-  {% endfor %}
-</div>
-</section>
+  </section>
+
+  <ul class="carousel">
+    <li id="coding-adventures">
+      <h1>Coding Adventures</h1>
+      <div class ="gallery">
+        {% for display_title, project_name, cover_name in [
+          ('Animaciones de Wasserstein', 'WassersteinAnimation', 'WassersteinAnimation'),
+          ('Model View Projection', 'ModelViewProjection', 'ModelViewProjection'),
+          ('The Heat Method for Distance Computation', 'HeatMethod', 'HeatMethodBackup'),
+          ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian', 'DiscreteLaplacian'),
+        ]%}
+        <a class="gallery-item" href="coding/{{ project_name }}/{{ project_name }}.html">
+          <p>{{ display_title }}</p>
+          <img src="covers/{{ cover_name }}.png"/>
+        </a>
+        {% endfor %}
+      </div>
+    </li>
+
+    <li id="math-adventures">
+      <h1>Math adventures</h1>
+      <div class="math-list">
+        {% for display_title, project_name in [
+          ('An explanation of the Logistic Regression formula', 'LogisticRegression'),
+        ]%}
+          <a href="math/{{ project_name }}/{{ project_name }}.html">
+            <p>{{ display_title }}</p>
+          </a>
+        {% endfor %}
+      </div>
+    </li>
+  </ul>
 </main>
+
+<script>
+  const carousel = document.querySelector(".carousel");
+  const nextSection = document.querySelector("#math-adventures");
+  const carouselChildren = carousel.querySelectorAll("li");
+
+  let hasNotScroll = true;
+  let timerId;
+
+  function glanceCarousel() {
+    if(hasNotScroll == false) {
+      clearTimeout(timerId);
+      return;
+    }
+
+    carousel.style.scrollSnapType = "";
+    carouselChildren.forEach((child) => {
+      child.style.scrollSnapAlign = "";
+    });
+
+    setTimeout(() => {
+      carousel.scrollTo({left: 200, behavior: "smooth"});
+    }, 2000);
+
+    setTimeout(() => {
+      carousel.style.scrollSnapType = "x mandatory";
+      carouselChildren.forEach((child) => {
+        child.style.scrollSnapAlign = "center";
+      });
+      carousel.scrollTo({right: 500, behavior: "smooth"});
+    }, 2500);
+
+    timerId = setTimeout(glanceCarousel, 15000);
+  }
+
+  window.addEventListener("scroll", () => {
+    hasNotScroll = false;
+  });
+
+  timerId = setTimeout(glanceCarousel, 0);
+</script>
 
 {% endblock %}
 

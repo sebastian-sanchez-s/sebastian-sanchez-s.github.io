@@ -14,74 +14,77 @@ body {
 }
 
 main {
-  display: grid;
-  gap: 1em;
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
   margin: auto;
-  grid-template-areas:
-  "B B B"
-  "C C M";
   justify-content: space-evenly;
 }
 
 .bio {
-  grid-area: B;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  width: 100%;
+  display: block;
+  width: 90%;
 }
 
 .bio a {
   text-decoration: underline gray;
 }
 
-.bio > .left-side {
+.bio .profile-img {
+  float: left;
   display: flex;
   flex-direction: column;
   gap: .5em;
   align-items: center;
   justify-content: flex-end;
+  margin: 1em;
+  width: 30%;
 }
 
-.bio > .left-side > img {
-  width: 50%;
+.bio .profile-img img {
+  width: 100px;
   border-radius: 50%;
   border: 2px solid gray;
 }
 
-.bio > .left-side .icons {
+.bio .profile-img .icons {
   display: flex;
   flex-direction: row;
   gap: 1em;
 }
 
-.bio > .left-side .icons .icon {
+.bio .profile-img .icons .icon {
   font-size: x-large;
 }
 
+blockquote {
+  font-size: small;
+  padding: 0 15%;
+  margin: 0;
+  text-align: justify;
+}
+
 #coding-adventures {
-  grid-area: C;
   text-align: center;
   height: min-content;
 }
 
 #math-adventures {
   text-align: center;
-  grid-area: M;
 }
 
 .gallery {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: start; 
+  justify-content: space-evenly; 
   gap: 1em;
 }
 
 .gallery-item {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 20%;
   aspect-ratio: 1/1;
   border: 2px ridge darkcyan;
 }
@@ -128,22 +131,34 @@ main {
   border: 2px solid cyan;
 }
 
+.carousel {
+  display: flex;
+  overflow-x: scroll;
+  width: 90%;
+  gap: 5%;
+}
+
+.carousel li {
+  list-style-type: none;
+  flex: 0 0 100%;
+}
+
 @media only screen and (max-width: 1000px) {
   * {
-    font-size: medium;
+    font-size: large;
   }
   main {
     display: flex;
     flex-direction: column;
   }
   .bio {
-    display: flex;
+    width: 100%;
   }
-  .bio > .left-side {
+  .bio .profile-img {
     display: none;
   }
   .gallery-item {
-    width: 60%;
+    width: 30%;
   }
 }
 
@@ -155,14 +170,12 @@ main {
     display: flex;
     flex-direction: column;
   }
-  .bio {
-    display: flex;
-  }
-  .bio > .left-side {
+  .bio .profile-img {
     display: none;
   }
   .gallery {
     flex-direction: column;
+    align-items: center;
   }
   .gallery-item {
     width: 100%;
