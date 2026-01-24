@@ -64,13 +64,28 @@ blockquote {
   text-align: justify;
 }
 
-#coding-adventures {
+.adventures {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   height: min-content;
 }
 
-#math-adventures {
-  text-align: center;
+.adventures-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.adventures-header > button {
+  background: transparent;
+  border: none;
+}
+
+.adventures-header > button:hover {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .gallery {

@@ -21,8 +21,7 @@
     <p>
     Welcome. My name is Sebastián Sánchez.
     Here you can find a <q>mathematician viewpoint</q>
-    on some topics of my interest, from
-    <strong>computer graphics</strong> to <strong>statistic</strong>.
+    on some topics of my interest.
     </p>
 
     <p>
@@ -48,8 +47,12 @@
   </section>
 
   <ul class="carousel">
-    <li id="coding-adventures">
-      <h1>Coding Adventures</h1>
+    <li class="adventures">
+      <div class="adventures-header">
+        <button><i class="fa-solid fa-arrow-left"></i></button>
+        <h1>Coding Adventures</h1>
+        <button><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
       <div class ="gallery">
         {% for display_title, project_name, cover_name in [
           ('Animaciones de Wasserstein', 'WassersteinAnimation', 'WassersteinAnimation'),
@@ -65,8 +68,12 @@
       </div>
     </li>
 
-    <li id="math-adventures">
-      <h1>Math adventures</h1>
+    <li class="adventures">
+      <div class="adventures-header">
+        <button><i class="fa-solid fa-arrow-left"></i></button>
+        <h1>Math adventures</h1>
+        <button><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
       <div class="math-list">
         {% for display_title, project_name in [
           ('An explanation of the Logistic Regression formula', 'LogisticRegression'),
@@ -81,9 +88,11 @@
 </main>
 
 <script>
+  /*
+  Glances the other entry of the carousel until the 
+  viewer scrolls
+  */
   const carousel = document.querySelector(".carousel");
-  const nextSection = document.querySelector("#math-adventures");
-  const carouselChildren = carousel.querySelectorAll("li");
 
   let hasNotScroll = true;
   let timerId;
@@ -95,9 +104,9 @@
     }
 
     carousel.style.scrollSnapType = "";
-    carouselChildren.forEach((child) => {
-      child.style.scrollSnapAlign = "";
-    });
+    for( const child of carousel.children ){
+          child.style.scrollSnapAlign = "";
+    }
 
     setTimeout(() => {
       carousel.scrollTo({left: 200, behavior: "smooth"});
@@ -105,9 +114,9 @@
 
     setTimeout(() => {
       carousel.style.scrollSnapType = "x mandatory";
-      carouselChildren.forEach((child) => {
-        child.style.scrollSnapAlign = "center";
-      });
+      for( const child of carousel.children ){
+            child.style.scrollSnapAlign = "center";
+      }
       carousel.scrollTo({right: 500, behavior: "smooth"});
     }, 2500);
 
@@ -119,6 +128,23 @@
   });
 
   timerId = setTimeout(glanceCarousel, 0);
+
+  let currCarouselIndex = 0;
+  function scrollIntoView(increment) {
+    increment = Math.min(Math.max(increment, -1), 1);
+    currCarouselIndex = (currCarouselIndex + increment) % carousel.children.length;
+    currCarouselIndex = Math.min(Math.max(currCarouselIndex, 0), carousel.children.length);
+    carousel.children[currCarouselIndex].scrollIntoView({behavior: "smooth"});
+  }
+
+  for(const button of carousel.querySelectorAll("button")){
+    if( button.children[0].className.includes("left") ){
+      button.addEventListener("click", () => scrollIntoView(-1));
+    }
+    else if( button.children[0].className.includes("right") ){
+      button.addEventListener("click", () => scrollIntoView(1));
+    }
+  }
 </script>
 
 {% endblock %}
