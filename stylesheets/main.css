@@ -155,7 +155,11 @@ blockquote {
   text-align: center;
 }
 
-.project-list-item-description a {
+.project-list-item-description h1 a:hover {
+  text-decoration: underline;
+}
+
+.project-list-item-description p a {
   color: darkcyan;
 }
 
@@ -168,6 +172,10 @@ blockquote {
 .project-list-item-img img {
   width: 100%;
   border-radius: 1ex;
+}
+
+.project-list-item-img img:hover {
+  border: 2px solid cyan;
 }
 
 .carousel {
@@ -219,6 +227,15 @@ blockquote {
     align-items: center;
   }
   .gallery-item {
+    width: 100%;
+  }
+  .project-list {
+    width: 100%;
+  }
+  .project-list-item-img {
+    display: none;
+  }
+  .project-list-item-description {
     width: 100%;
   }
 }

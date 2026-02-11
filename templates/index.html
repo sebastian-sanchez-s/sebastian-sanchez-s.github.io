@@ -105,7 +105,7 @@
         ]%}
           <div class="project-list-item" >
             <div class="project-list-item-description">
-              <h1>{{ display_title }}</h1>
+              <h1><a href="{{ href }}">{{ display_title }}</a></h1>
               {% for p in description %}
               <p>{{ p }}</p>
               {% endfor %}
@@ -139,7 +139,7 @@
         ]%}
           <div class="project-list-item" >
             <div class="project-list-item-description">
-              <h1>{{ display_title }}</h1>
+              <h1><a href="{{ href }}" target="_blank">{{ display_title }}</a></h1>
               {% for p in description %}
               <p>{{ p }}</p>
               {% endfor %}
