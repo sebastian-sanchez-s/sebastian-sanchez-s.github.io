@@ -91,15 +91,15 @@ blockquote {
 .gallery {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly; 
   gap: 1em;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .gallery-item {
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 25%;
   aspect-ratio: 1/1;
   border: 2px ridge darkcyan;
 }
@@ -110,12 +110,11 @@ blockquote {
 }
 
 .gallery-item  p {
-  font-size: medium;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0;
+  padding: 1ex;
   height: 3.5em;
   color: white;
   background-color: black;
@@ -131,19 +130,44 @@ blockquote {
   background-color: white;
 }
 
-.math-list {
+.project-list {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  gap: 1em;
 }
 
-.math-list a {
+.project-list-item {
+  display: flex;
   padding: 1ex;
-  font-size: large;
+  flex-direction: row;
+  justify-content: space-between;
   border: 2px solid darkcyan;
 }
 
-.math-list a:hover {
-  border: 2px solid cyan;
+.project-list-item-description {
+  width: 70%;
+  padding: 0 2ex;
+  text-align: justify;
+}
+
+.project-list-item-description h1 {
+  text-align: center;
+}
+
+.project-list-item-description a {
+  color: darkcyan;
+}
+
+.project-list-item-img {
+  align-self: center;
+  width: 30%;
+  justify-content: center;
+}
+
+.project-list-item-img img {
+  width: 100%;
+  border-radius: 1ex;
 }
 
 .carousel {
@@ -151,11 +175,13 @@ blockquote {
   overflow-x: scroll;
   width: 90%;
   gap: 5%;
+  scroll-snap-type: x mandatory;
 }
 
 .carousel li {
   list-style-type: none;
   flex: 0 0 100%;
+  scroll-snap-align: center;
 }
 
 @media only screen and (max-width: 1000px) {

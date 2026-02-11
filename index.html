@@ -30,12 +30,12 @@
 
     <p>
     Welcome. My name is Sebastián Sánchez.
-    Here you can find a <q>mathematician viewpoint</q>
+    Here you can find a <q>mathematician's viewpoint</q>
     on some topics of my interest.
     </p>
 
     <p>
-    I've earned, at Pontificia Universidad Católica de Chile, a
+    I've earned at Pontificia Universidad Católica de Chile, a
     <ul>
       <li>Master's degree in Mathematics and Computational Engineering, and</li>
       <li>Bachelor's degree in Mathematics, with a minor in Computer Science.</li>
@@ -91,14 +91,79 @@
     <li class="adventures">
       <div class="adventures-header">
         <button><i class="fa-solid fa-arrow-left"></i></button>
-        <h1>Math adventures</h1>
+        <h1>Math Adventures</h1>
         <button><i class="fa-solid fa-arrow-right"></i></button>
       </div>
-      <div class="math-list">
+      <div class="project-list">
         
-          <a href="math/LogisticRegression/LogisticRegression.html">
-            <p>An explanation of the Logistic Regression formula</p>
-          </a>
+          <div class="project-list-item" >
+            <div class="project-list-item-description">
+              <h1>Derivation of the Logistic Regression formula</h1>
+              
+              <p>If you are like me, you must hate the "shut up and calculate" mantra. In this document I introduce the categorization problem from data, and in its formalization an optimization problem arises that give us very naturally the characteristic formula used in logistic regression.</p>
+              
+            </div>
+            <a class="project-list-item-img" href="math/LogisticRegression/LogisticRegression.html">
+              <img src="covers/LogisticRegression.png"/>
+            </a>
+          </div>
+        
+          <div class="project-list-item" >
+            <div class="project-list-item-description">
+              <h1>Approximation Theory for Continuous Operators and its Application to the Operator Learning Problem</h1>
+              
+              <p>This is my master's thesis, supervised by <a href="https://federicofuentes.github.io/" target="_blank">Ph.D. Federico Fuentes Caycedo</a>.</p>
+              
+              <p>The usual treatment of operator learning focuses on the amount and quality of training data to maximize identification in the least number of epochs. The objective of this document is to complement the literature by reviewing the theory underlying operator approximation, validating error estimates with numerical experiments and extracting features from approximants. Through the review, we aim to formalize incomplete and unclear proofs, extend results and relate ideas under a general framework, and propose nuanced questions to guide future research.</p>
+              
+              <p>The following <a href="https://github.com/sebastian-sanchez-s/OperatorLearning" target="_blank">github repository</a> contains some of the code generated through this thesis.</p>
+              
+            </div>
+            <a class="project-list-item-img" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a">
+              <img src="covers/MasterThesis.png"/>
+            </a>
+          </div>
+        
+          <div class="project-list-item" >
+            <div class="project-list-item-description">
+              <h1>Wave Scattering Through a Ball</h1>
+              
+              <p>Imagine a planar acoustic wave traveling through the air and colliding with a ball fill with water. How does the wave behave on this impact? I computed analytical solutions for this problem.</p>
+              
+              <p>The document is part of a summer undergrad research project (roughly 2 months) at Pontificia Universidad Católica de Chile supervised by <a href="https://www.ing.uc.cl/academicos-e-investigadores/elwin-van-t-wout/" target="_blank">Ph.D. Elwin Van't Wout</a>, and the code is now part of the <a href="https://github.com/optimuslib/optimus" target="_blank">OptimusLib</a> software for 3D wave scattering.</p>
+              
+              <p>Please refer to the <a href="https://github.com/sebastian-sanchez-s/IPV-23-2801" target="_blank">github repository</a> for details and better visualization, since the conversion to html is not that great.</p>
+              
+            </div>
+            <a class="project-list-item-img" href="math/WaveScattering/WaveScattering.html">
+              <img src="covers/WaveScattering.png"/>
+            </a>
+          </div>
+        
+      </div>
+    </li>
+
+    <li class="adventures">
+      <div class="adventures-header">
+        <button><i class="fa-solid fa-arrow-left"></i></button>
+        <h1>Software Development Adventures</h1>
+        <button><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+      <div class="project-list">
+        
+          <div class="project-list-item" >
+            <div class="project-list-item-description">
+              <h1>Which Young tableaux can represent an outer sum?</h1>
+              
+              <p>A Young Tableaux is grid of numbers such that every cell is greater than the cell to the right and to the bottom. In this project, I developed and implemented an algorithm to massively compute Young Tableaux that can be represented by outer sums of vectors based on a LP algorithm developed by Colin Mallows and Robert J. Vanderbei.</p>
+              
+              <p>This project was developed during a winter undergrad research project (roughly a month) at Pontificia Universidad Católica de Chile supervised by <a href="https://www.mat.uc.cl/~federico.castillo/" target="_blank">Ph.D. Federico Castillo Castillo</a>. Please refer to the <a href="https://github.com/sebastian-sanchez-s/IPI-23-2211">github repository</a> for details.</p>
+              
+            </div>
+            <a class="project-list-item-img" href="https://github.com/sebastian-sanchez-s/IPI-23-2211">
+              <img src="covers/YoungTableauxOuterSums.png"/>
+            </a>
+          </div>
         
       </div>
     </li>
@@ -106,48 +171,10 @@
 </main>
 
 <script>
-  /*
-  Glances the other entry of the carousel until the 
-  viewer scrolls
-  */
   const carousel = document.querySelector(".carousel");
 
-  let hasNotScroll = true;
-  let timerId;
-
-  function glanceCarousel() {
-    if(hasNotScroll == false) {
-      clearTimeout(timerId);
-      return;
-    }
-
-    carousel.style.scrollSnapType = "";
-    for( const child of carousel.children ){
-          child.style.scrollSnapAlign = "";
-    }
-
-    setTimeout(() => {
-      carousel.scrollTo({left: 200, behavior: "smooth"});
-    }, 2000);
-
-    setTimeout(() => {
-      carousel.style.scrollSnapType = "x mandatory";
-      for( const child of carousel.children ){
-            child.style.scrollSnapAlign = "center";
-      }
-      carousel.scrollTo({right: 500, behavior: "smooth"});
-    }, 2500);
-
-    timerId = setTimeout(glanceCarousel, 15000);
-  }
-
-  window.addEventListener("scroll", () => {
-    hasNotScroll = false;
-  });
-
-  timerId = setTimeout(glanceCarousel, 0);
-
   let currCarouselIndex = 0;
+
   function scrollIntoView(increment) {
     increment = Math.min(Math.max(increment, -1), 1);
     currCarouselIndex = (currCarouselIndex + increment) % carousel.children.length;
