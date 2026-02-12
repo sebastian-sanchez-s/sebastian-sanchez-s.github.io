@@ -58,9 +58,8 @@ main {
 }
 
 blockquote {
-  font-size: small;
-  padding: 0 15%;
-  margin: 0;
+  padding: 0 10%;
+  font-size: medium;
   text-align: justify;
 }
 
