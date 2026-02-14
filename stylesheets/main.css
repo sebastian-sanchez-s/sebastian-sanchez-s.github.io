@@ -63,36 +63,43 @@ blockquote {
   text-align: justify;
 }
 
-.adventures {
+.adventures-navbar {
+  text-align: center;
+  margin-top: 1ex;
+  border-top: 2px solid darkcyan;
+}
+
+.adventures-navbar div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.adventures-navbar button {
+  flex: 1;
+  padding: 1ex;
+  background: black;
+  border: none;
+}
+
+.adventures-navbar button:hover {
+  border: 2px solid darkcyan;
+  border-top: none;
+}
+
+.adventure {
   display: flex;
   flex-direction: column;
   text-align: center;
   height: min-content;
 }
 
-.adventures-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.adventures-header > button {
-  background: transparent;
-  border: none;
-}
-
-.adventures-header > button:hover {
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-}
-
 .gallery {
   display: flex;
   flex-direction: row;
-  gap: 1em;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
+  row-gap: 2em;
 }
 
 .gallery-item {
@@ -177,7 +184,7 @@ blockquote {
   border: 2px solid cyan;
 }
 
-.carousel {
+.adventures {
   display: flex;
   overflow-x: scroll;
   width: 90%;
@@ -185,7 +192,7 @@ blockquote {
   scroll-snap-type: x mandatory;
 }
 
-.carousel li {
+.adventures li {
   list-style-type: none;
   flex: 0 0 100%;
   scroll-snap-align: center;
@@ -217,9 +224,23 @@ blockquote {
   main {
     display: flex;
     flex-direction: column;
+    padding: 1ex;
+  }
+  .bio {
+    text-align: justify;
   }
   .bio .profile-img {
     display: none;
+  }
+  blockquote {
+    padding: 1em;
+    margin: 0;
+  }
+  .adventures {
+    gap: 50%;
+  }
+  .adventures li:last-child {
+    margin-right: 100px;
   }
   .gallery {
     flex-direction: column;
@@ -228,13 +249,15 @@ blockquote {
   .gallery-item {
     width: 100%;
   }
-  .project-list {
-    width: 100%;
-  }
-  .project-list-item-img {
-    display: none;
+  .project-list-item {
+    flex-direction: column;
+    justify-content: center;
   }
   .project-list-item-description {
+    width: 100%;
+    padding: 0;
+  }
+  .project-list-item-img {
     width: 100%;
   }
 }
