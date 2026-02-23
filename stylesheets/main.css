@@ -192,7 +192,7 @@ blockquote {
   scroll-snap-type: x mandatory;
 }
 
-.adventures li {
+.adventures > li {
   list-style-type: none;
   flex: 0 0 100%;
   scroll-snap-align: center;

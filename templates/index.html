@@ -70,30 +70,24 @@
     {% for adventure_section in
       (
         (
-          ( 'Derivation of the Logistic Regression formula', 
-            'LogisticRegression',
-            'math/LogisticRegression/LogisticRegression.html'
-          ),
-          ( 'Approximation Theory for Continuous Operators and its Application to the Operator Learning Problem',
-            'MasterThesis',
+          ( 'MasterThesis',
             'https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a',
           ),
-          ( 'Wave Scattering Through a Ball',
-            'WaveScattering',
+          ( 'WaveScattering',
             'math/WaveScattering/WaveScattering.html',
+          ),
+          ( 'LogisticRegression',
+            'math/LogisticRegression/LogisticRegression.html'
           ),
         ),
         (
-          ( 'Django Survey (in progress)',
-            'DjangoSurveyApp',
+          ( 'DjangoSurveyApp',
             'https://github.com/sebastian-sanchez-s/MEBA'
           ),
-          ( 'Which Young tableaux can represent an outer sum?',
-            'YoungTableauxOuterSums',
+          ( 'YoungTableauxOuterSums',
             'https://github.com/sebastian-sanchez-s/IPI-23-2211'
           ),
-          ( 'Bitmap library in C',
-            'Bitmap',
+          ( 'Bitmap',
             'https://github.com/sebastian-sanchez-s/BitMap'
           ),
         ),
@@ -102,10 +96,9 @@
 
     <li class="adventure">
       <div class="project-list">
-        {% for display_title, project_name, href in adventure_section %}
+        {% for project_name, href in adventure_section %}
           <div class="project-list-item" >
             <div class="project-list-item-description">
-              <h1><a href="{{ href }}" target="_blank">{{ display_title }}</a></h1>
               {% include "desc/"~project_name~".html" %}
             </div>
             <a class="project-list-item-img" href="{{ href }}" target="_blank">
