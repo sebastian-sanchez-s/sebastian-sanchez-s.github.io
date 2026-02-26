@@ -1,18 +1,18 @@
 {% extends "_base.html" %}
 
 {% block body %}
-<main>
-  <section class="bio">
-    <div class="profile-img">
-      <img src="./images/profile2.jpg">
-      <div class="icons">
-        <a class="icon" href="https://www.linkedin.com/in/sebasti%C3%A1n-s%C3%A1nchez-s/">
+<main class="flex-column j-space-evenly m-auto w-90">
+  <section class="profile">
+    <div class="profile-picture">
+      <img class="bd-2 bd-solid bd-gray bd-radius-50" width="100px" src="./images/profile2.jpg">
+      <div class="flex-row gap-1">
+        <a class="font-xlarge" href="https://www.linkedin.com/in/sebasti%C3%A1n-s%C3%A1nchez-s/" target="_blank">
           <i class="fa fa-linkedin"></i>
         </a>
-        <a class="icon" href="https://github.com/sebastian-sanchez-s/">
+        <a class="font-xlarge" href="https://github.com/sebastian-sanchez-s/" target="_blank">
           <i class="fa fa-github"></i>
         </a>
-        <a class="icon" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDhaR6wt5tORI4oJCgZaJWfATFwpMnW_hKhTQ5DoJEL5yQ?e=1ldxvB" target="_blank">
+        <a class="font-xlarge" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDhaR6wt5tORI4oJCgZaJWfATFwpMnW_hKhTQ5DoJEL5yQ?e=1ldxvB" target="_blank">
           cv
         </a>
       </div>
@@ -41,117 +41,30 @@
   --<cite>Vladimir I. Arnold</cite>
   </blockquote>
 
-  <div class="adventures-navbar">
-    <div>
-      <button>Coding</button>
-      <button>Math</button>
-      <button>Software</button>
+  <div class="gallery">
+    {% for project_name, href in 
+    (
+      ( 'DjangoSurveyApp', 'https://github.com/sebastian-sanchez-s/MEBA'),
+      ( 'LogisticRegression', 'math/LogisticRegression/LogisticRegression.html'),
+      ( 'WassersteinAnimation', 'coding/WassersteinAnimation/WassersteinAnimation.html'),
+      ( 'MasterThesis', 'https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a'),
+      ( 'ModelViewProjection', 'coding/ModelViewProjection/ModelViewProjection.html'),
+      ( 'HeatMethod', 'coding/HeatMethod/HeatMethod.html'),
+      ( 'DiscreteLaplacian', 'coding/DiscreteLaplacian/DiscreteLaplacian.html'),
+      ( 'WaveScattering', 'math/WaveScattering/WaveScattering.html'),
+      ( 'YoungTableauxOuterSums', 'https://github.com/sebastian-sanchez-s/IPI-23-2211'),
+      ( 'Bitmap', 'https://github.com/sebastian-sanchez-s/BitMap'),
+    )%}
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        {% include 'desc/'~project_name~'.html' %}
+      </div>
+      <a class="card-img" href="{{ href }}" target="_blank">
+        <img width="100%" height="100%" src="covers/{{ project_name }}.png"/>
+      </a>
     </div>
-  </div>
-
-  <ul class="adventures">
-    <li class="adventure">
-      <div class ="gallery">
-        {% for display_title, project_name, cover_name in [
-          ('Animaciones de Wasserstein', 'WassersteinAnimation', 'WassersteinAnimation'),
-          ('Model View Projection', 'ModelViewProjection', 'ModelViewProjection'),
-          ('The Heat Method for Distance Computation', 'HeatMethod', 'HeatMethodBackup'),
-          ('Discrete Laplacian on Triangle Meshes', 'DiscreteLaplacian', 'DiscreteLaplacian'),
-        ]%}
-        <a class="gallery-item" href="coding/{{ project_name }}/{{ project_name }}.html">
-          <p>{{ display_title }}</p>
-          <img src="covers/{{ cover_name }}.png"/>
-        </a>
-        {% endfor %}
-      </div>
-    </li>
-
-    {# List type adventures, must follow the order of the navbar #}
-    {% for adventure_section in
-      (
-        (
-          ( 'MasterThesis',
-            'https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a',
-          ),
-          ( 'WaveScattering',
-            'math/WaveScattering/WaveScattering.html',
-          ),
-          ( 'LogisticRegression',
-            'math/LogisticRegression/LogisticRegression.html'
-          ),
-        ),
-        (
-          ( 'DjangoSurveyApp',
-            'https://github.com/sebastian-sanchez-s/MEBA'
-          ),
-          ( 'YoungTableauxOuterSums',
-            'https://github.com/sebastian-sanchez-s/IPI-23-2211'
-          ),
-          ( 'Bitmap',
-            'https://github.com/sebastian-sanchez-s/BitMap'
-          ),
-        ),
-      )
-    %}
-
-    <li class="adventure">
-      <div class="project-list">
-        {% for project_name, href in adventure_section %}
-          <div class="project-list-item" >
-            <div class="project-list-item-description">
-              {% include "desc/"~project_name~".html" %}
-            </div>
-            <a class="project-list-item-img" href="{{ href }}" target="_blank">
-              <img src="covers/{{ project_name }}.png"/>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    </li>
     {% endfor %}
-  </ul>
+  </div>
 </main>
-
-<script>
-  const adventuresNav = document.querySelector(".adventures-navbar");
-  const buttons = adventuresNav.querySelectorAll("button");
-  const adventures = document.querySelectorAll(".adventure");
-
-  let lastIndex = 0;
-  buttons[lastIndex].style.background = "rgba(255, 255, 255, 0.2)";
-
-  function updateNavBar(newIndex) {
-      buttons[lastIndex].style.background = "black";
-      buttons[newIndex].style.background = "rgba(255, 255, 255, 0.2)";
-
-      lastIndex = newIndex;
-  }
-
-
-  for(let i=0; i<buttons.length; i++){
-    buttons[i].addEventListener("click", () => {
-      adventures[i].scrollIntoView({behavior: "smooth"});
-
-      updateNavBar(i);
-    });
-  }
-
-  const adventureContainer = document.querySelector(".adventures");
-
-  function isVisible(element) {
-    const rect = element.getBoundingClientRect();
-    return rect.left >= 0 && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
-  }
-
-  adventureContainer.addEventListener("scroll", (e) => {
-    for( let i=0; i < adventures.length; i++) {
-      if( isVisible(adventures[i]) ){
-        updateNavBar(i);
-        break;
-      }
-    }
-  });
-</script>
-
 {% endblock %}
 

@@ -8,21 +8,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Sebastián Sánchez</title>
 </head>
-<body>
+<body class="m-0 bg-carbon">
 
 
-<main>
-  <section class="bio">
-    <div class="profile-img">
-      <img src="./images/profile2.jpg">
-      <div class="icons">
-        <a class="icon" href="https://www.linkedin.com/in/sebasti%C3%A1n-s%C3%A1nchez-s/">
+<main class="flex-column j-space-evenly m-auto w-90">
+  <section class="profile">
+    <div class="profile-picture">
+      <img class="bd-2 bd-solid bd-gray bd-radius-50" width="100px" src="./images/profile2.jpg">
+      <div class="flex-row gap-1">
+        <a class="font-xlarge" href="https://www.linkedin.com/in/sebasti%C3%A1n-s%C3%A1nchez-s/" target="_blank">
           <i class="fa fa-linkedin"></i>
         </a>
-        <a class="icon" href="https://github.com/sebastian-sanchez-s/">
+        <a class="font-xlarge" href="https://github.com/sebastian-sanchez-s/" target="_blank">
           <i class="fa fa-github"></i>
         </a>
-        <a class="icon" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDhaR6wt5tORI4oJCgZaJWfATFwpMnW_hKhTQ5DoJEL5yQ?e=1ldxvB" target="_blank">
+        <a class="font-xlarge" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDhaR6wt5tORI4oJCgZaJWfATFwpMnW_hKhTQ5DoJEL5yQ?e=1ldxvB" target="_blank">
           cv
         </a>
       </div>
@@ -51,50 +51,71 @@
   --<cite>Vladimir I. Arnold</cite>
   </blockquote>
 
-  <div class="adventures-navbar">
-    <div>
-      <button>Coding</button>
-      <button>Math</button>
-      <button>Software</button>
-    </div>
-  </div>
+  <div class="gallery">
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Django Surveys</h1>
 
-  <ul class="adventures">
-    <li class="adventure">
-      <div class ="gallery">
-        
-        <a class="gallery-item" href="coding/WassersteinAnimation/WassersteinAnimation.html">
-          <p>Animaciones de Wasserstein</p>
-          <img src="covers/WassersteinAnimation.png"/>
-        </a>
-        
-        <a class="gallery-item" href="coding/ModelViewProjection/ModelViewProjection.html">
-          <p>Model View Projection</p>
-          <img src="covers/ModelViewProjection.png"/>
-        </a>
-        
-        <a class="gallery-item" href="coding/HeatMethod/HeatMethod.html">
-          <p>The Heat Method for Distance Computation</p>
-          <img src="covers/HeatMethodBackup.png"/>
-        </a>
-        
-        <a class="gallery-item" href="coding/DiscreteLaplacian/DiscreteLaplacian.html">
-          <p>Discrete Laplacian on Triangle Meshes</p>
-          <img src="covers/DiscreteLaplacian.png"/>
-        </a>
-        
+<p>
+The app consists of Pollsters, Respondents, Surveys, Questions
+and Answers, as show the entity-relation diagram on the right.
+I design the database such that common data retrieval
+queries are efficient i.e. getting all answers to a question.
+</p>
+
+<p>
+I used class based views, permissions mixin, and forms.
+The architecture is decoupled i.e. templates do not
+mess with business logic and queries are handled mostly by models.
+I put a lot of effort into writing idiomatic django code.
+</p>
+
+<p>
+TODO:
+<ul>
+  <li>text in views, right now it is hardcoded and some components
+    can be defined on the models definition.</li>
+</ul>
+</p>
+
+<p>
+This project is part of the digitalization process of a health
+related faculty.
+</p>
       </div>
-    </li>
-
+      <a class="card-img" href="https://github.com/sebastian-sanchez-s/MEBA" target="_blank">
+        <img width="100%" height="100%" src="covers/DjangoSurveyApp.png"/>
+      </a>
+    </div>
     
-    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Logistic Regression (Derivation)</h1>
 
-    <li class="adventure">
-      <div class="project-list">
-        
-          <div class="project-list-item" >
-            <div class="project-list-item-description">
-              <h1>Approximation Theory for Continuous Operators and its Application to the Operator Learning Problem</h1>
+<p>
+In this document I introduce the categorization problem from data, and in its
+formalization an optimization problem arises that give us very naturally the
+characteristic formula used in logistic regression.
+</p>
+      </div>
+      <a class="card-img" href="math/LogisticRegression/LogisticRegression.html" target="_blank">
+        <img width="100%" height="100%" src="covers/LogisticRegression.png"/>
+      </a>
+    </div>
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Animaciones de Wasserstein</h1>
+      </div>
+      <a class="card-img" href="coding/WassersteinAnimation/WassersteinAnimation.html" target="_blank">
+        <img width="100%" height="100%" src="covers/WassersteinAnimation.png"/>
+      </a>
+    </div>
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Operator Learning (MSc Thesis)</h1>
 <p>
 This is my master's thesis, supervised by <a href="https://federicofuentes.github.io/" target="_blank">Ph.D. Federico Fuentes Caycedo</a>.
 </p>
@@ -114,15 +135,42 @@ The following <a href="https://github.com/sebastian-sanchez-s/OperatorLearning"
 target="_blank">github repository</a> contains some of the code generated
 through this thesis.
 </p>
-            </div>
-            <a class="project-list-item-img" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a" target="_blank">
-              <img src="covers/MasterThesis.png"/>
-            </a>
-          </div>
-        
-          <div class="project-list-item" >
-            <div class="project-list-item-description">
-              <h1>Wave Scattering Through a Ball</h1>
+      </div>
+      <a class="card-img" href="https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a" target="_blank">
+        <img width="100%" height="100%" src="covers/MasterThesis.png"/>
+      </a>
+    </div>
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Model View Projection</h1>
+      </div>
+      <a class="card-img" href="coding/ModelViewProjection/ModelViewProjection.html" target="_blank">
+        <img width="100%" height="100%" src="covers/ModelViewProjection.png"/>
+      </a>
+    </div>
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>The Heat Method for Distance Computation</h1>
+      </div>
+      <a class="card-img" href="coding/HeatMethod/HeatMethod.html" target="_blank">
+        <img width="100%" height="100%" src="covers/HeatMethod.png"/>
+      </a>
+    </div>
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Discrete Laplacian</h1>
+      </div>
+      <a class="card-img" href="coding/DiscreteLaplacian/DiscreteLaplacian.html" target="_blank">
+        <img width="100%" height="100%" src="covers/DiscreteLaplacian.png"/>
+      </a>
+    </div>
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Wave Scattering Through a Ball</h1>
 <p>
 Imagine a planar acoustic wave traveling through the air and
 colliding with a ball fill with water. How does the wave behave
@@ -142,69 +190,15 @@ Please refer to the <a href="https://github.com/sebastian-sanchez-s/IPV-23-2801"
 target="_blank">github repository</a> for details and better
 visualization, since the conversion to html is not that great.
 </p>
-            </div>
-            <a class="project-list-item-img" href="math/WaveScattering/WaveScattering.html" target="_blank">
-              <img src="covers/WaveScattering.png"/>
-            </a>
-          </div>
-        
-          <div class="project-list-item" >
-            <div class="project-list-item-description">
-              <h1>Derivation of the Logistic Regression formula</h1>
-
-<p>
-In this document I introduce the categorization problem from data, and in its
-formalization an optimization problem arises that give us very naturally the
-characteristic formula used in logistic regression.
-</p>
-            </div>
-            <a class="project-list-item-img" href="math/LogisticRegression/LogisticRegression.html" target="_blank">
-              <img src="covers/LogisticRegression.png"/>
-            </a>
-          </div>
-        
       </div>
-    </li>
+      <a class="card-img" href="math/WaveScattering/WaveScattering.html" target="_blank">
+        <img width="100%" height="100%" src="covers/WaveScattering.png"/>
+      </a>
+    </div>
     
-
-    <li class="adventure">
-      <div class="project-list">
-        
-          <div class="project-list-item" >
-            <div class="project-list-item-description">
-              <h1>Django Surveys</h1>
-<p>
-The app consists of Pollsters, Respondents, Surveys, Questions
-and Answers, as show the entity-relation diagram on the right.
-I design the database such that common data retrieval
-queries are efficient i.e. getting all answers to a question.
-</p>
-<p>
-I used class based views, permissions mixin, and forms.
-The architecture is decoupled i.e. templates do not
-mess with business logic and queries are handled mostly by models.
-I put a lot of effort into writing idiomatic django code.
-</p>
-<p>
-TODO:
-<ul>
-  <li>text in views, right now it is hardcoded and some components
-    can be defined on the models definition.</li>
-</ul>
-</p>
-<p>
-This project is part of the digitalization process of a health
-related faculty.
-</p>
-            </div>
-            <a class="project-list-item-img" href="https://github.com/sebastian-sanchez-s/MEBA" target="_blank">
-              <img src="covers/DjangoSurveyApp.png"/>
-            </a>
-          </div>
-        
-          <div class="project-list-item" >
-            <div class="project-list-item-description">
-              <h1>Which Young tableaux can represent an outer sum?</h1>
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Young tableaux as outer sums</h1>
 
 <p>
 A Young Tableaux is grid of numbers such that every cell is greater than
@@ -227,72 +221,28 @@ Please refer to the <a
 href="https://github.com/sebastian-sanchez-s/IPI-23-2211">github
 repository</a> for details.
 </p>
-            </div>
-            <a class="project-list-item-img" href="https://github.com/sebastian-sanchez-s/IPI-23-2211" target="_blank">
-              <img src="covers/YoungTableauxOuterSums.png"/>
-            </a>
-          </div>
-        
-          <div class="project-list-item" >
-            <div class="project-list-item-description">
-              <h1>Bitmap library in C</h1>
+      </div>
+      <a class="card-img" href="https://github.com/sebastian-sanchez-s/IPI-23-2211" target="_blank">
+        <img width="100%" height="100%" src="covers/YoungTableauxOuterSums.png"/>
+      </a>
+    </div>
+    
+    <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
+      <div class="card-desc">
+        <h1>Bitmap library in C</h1>
+
 <p>
 A simple library to create bmp images with multiple header versions.
 Aimed to my learning process of image processing.
 </p>
-            </div>
-            <a class="project-list-item-img" href="https://github.com/sebastian-sanchez-s/BitMap" target="_blank">
-              <img src="covers/Bitmap.png"/>
-            </a>
-          </div>
-        
       </div>
-    </li>
+      <a class="card-img" href="https://github.com/sebastian-sanchez-s/BitMap" target="_blank">
+        <img width="100%" height="100%" src="covers/Bitmap.png"/>
+      </a>
+    </div>
     
-  </ul>
+  </div>
 </main>
-
-<script>
-  const adventuresNav = document.querySelector(".adventures-navbar");
-  const buttons = adventuresNav.querySelectorAll("button");
-  const adventures = document.querySelectorAll(".adventure");
-
-  let lastIndex = 0;
-  buttons[lastIndex].style.background = "rgba(255, 255, 255, 0.2)";
-
-  function updateNavBar(newIndex) {
-      buttons[lastIndex].style.background = "black";
-      buttons[newIndex].style.background = "rgba(255, 255, 255, 0.2)";
-
-      lastIndex = newIndex;
-  }
-
-
-  for(let i=0; i<buttons.length; i++){
-    buttons[i].addEventListener("click", () => {
-      adventures[i].scrollIntoView({behavior: "smooth"});
-
-      updateNavBar(i);
-    });
-  }
-
-  const adventureContainer = document.querySelector(".adventures");
-
-  function isVisible(element) {
-    const rect = element.getBoundingClientRect();
-    return rect.left >= 0 && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
-  }
-
-  adventureContainer.addEventListener("scroll", (e) => {
-    for( let i=0; i < adventures.length; i++) {
-      if( isVisible(adventures[i]) ){
-        updateNavBar(i);
-        break;
-      }
-    }
-  });
-</script>
-
 
 
 </body>
