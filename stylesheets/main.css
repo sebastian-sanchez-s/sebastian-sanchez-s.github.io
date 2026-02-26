@@ -1,9 +1,7 @@
 * { font-size: large; color: white; }
-a { text-decoration: none; color: white; }
+a { text-decoration: underline gray; color: white; }
 
 .profile { width: 90%; text-align: justify; }
-
-.profile a { text-decoration: underline gray; }
 
 .profile-picture {
   float: left;
@@ -31,12 +29,15 @@ blockquote {
 
 .card {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   padding: 1ex;
   gap: 1ex;
+  aspect-ratio: 3/4;
   border-radius: 1em;
 }
+.card:hover { border-color: white; }
 
 .card-desc * { display: none; }
 .card-desc > h1 {
@@ -48,7 +49,39 @@ blockquote {
   margin: 0;
 }
 .card-img { flex: 1; }
-.card-img > img { border-radius: 1em; }
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 1em;
+}
+.card-footer * { font-size: small; }
+.card-footer > button, .card-footer > a {
+  flex: 1;
+  border: none; 
+  text-align: center;
+  background-color: color-mix(in srgb, gray 30%, transparent);
+}
+.card-footer > button:hover, .card-footer > a:hover {
+  flex: 1;
+  background-color: gray; 
+}
+
+.card-footer dialog {
+  width: 50%;
+  height: 70%;
+  padding: 1em;
+  background-color: black;
+  border: 2px solid darkcyan;
+  border-radius: 1em;
+}
+.card-footer dialog * { font-size: large; }
+.card-footer dialog button {
+  border: none;
+  padding: 0.5ex;
+  border-radius: 1ex;
+  background-color: color-mix(in srgb, gray 30%, transparent);
+}
 
 .font-medium { font-size: medium; }
 .font-xlarge { font-size: x-large; }
@@ -65,6 +98,8 @@ blockquote {
 .bd-gray { border-color: gray }
 .bd-darkcyan { border-color: darkcyan; }
 .bd-2 { border-width: 2px; }
+.bd-radius-bl-1ex { border-bottom-left-radius: 1ex; }
+.bd-radius-br-1ex { border-bottom-right-radius: 1ex; }
 
 .flex-row { display: flex; flex-direction: row; }
 .flex-column { display: flex; flex-direction: column; }
@@ -96,4 +131,5 @@ blockquote {
   .profile-picture { display: none; }
   .gallery { flex-direction: column; }
   .card { width: 90%; }
+  .card-footer dialog { width: 90%; }
 }

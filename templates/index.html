@@ -18,16 +18,7 @@
       </div>
     </div>
 
-    <p>
-    I use this website to publish the projects I have worked on
-    math &cup; compsci &cup; software.
-    </p>
-
-    <p>
-    I've worked in scientific machine learning and functional analysis (MSc. thesis),
-    topological data analysis (BSc. thesis), and scientific software development 
-    both in PDEs and combinatorics ... a lot more is to say, but see for yourself below.
-    </p>
+    {% include 'desc/profile.html' %}
   </section>
 
   <blockquote>
@@ -44,14 +35,14 @@
   <div class="gallery">
     {% for project_name, href in 
     (
-      ( 'DjangoSurveyApp', 'https://github.com/sebastian-sanchez-s/MEBA'),
-      ( 'LogisticRegression', 'math/LogisticRegression/LogisticRegression.html'),
-      ( 'WassersteinAnimation', 'coding/WassersteinAnimation/WassersteinAnimation.html'),
       ( 'MasterThesis', 'https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a'),
-      ( 'ModelViewProjection', 'coding/ModelViewProjection/ModelViewProjection.html'),
+      ( 'WassersteinAnimation', 'coding/WassersteinAnimation/WassersteinAnimation.html'),
       ( 'HeatMethod', 'coding/HeatMethod/HeatMethod.html'),
-      ( 'DiscreteLaplacian', 'coding/DiscreteLaplacian/DiscreteLaplacian.html'),
+      ( 'DjangoSurveyApp', 'https://github.com/sebastian-sanchez-s/MEBA'),
+      ( 'ModelViewProjection', 'coding/ModelViewProjection/ModelViewProjection.html'),
       ( 'WaveScattering', 'math/WaveScattering/WaveScattering.html'),
+      ( 'DiscreteLaplacian', 'coding/DiscreteLaplacian/DiscreteLaplacian.html'),
+      ( 'LogisticRegression', 'math/LogisticRegression/LogisticRegression.html'),
       ( 'YoungTableauxOuterSums', 'https://github.com/sebastian-sanchez-s/IPI-23-2211'),
       ( 'Bitmap', 'https://github.com/sebastian-sanchez-s/BitMap'),
     )%}
@@ -59,9 +50,15 @@
       <div class="card-desc">
         {% include 'desc/'~project_name~'.html' %}
       </div>
-      <a class="card-img" href="{{ href }}" target="_blank">
-        <img width="100%" height="100%" src="covers/{{ project_name }}.png"/>
-      </a>
+      <img class="card-img" width="100%" height="100%" src="covers/{{ project_name }}.png"/>
+      <div class="card-footer">
+        <button class="bd-radius-bl-1ex" popovertarget="{{ project_name }}">Abstract</button>
+        <dialog id="{{ project_name}}" popover>
+          {% include 'desc/'~project_name~'.html' %}
+          <button popovertarget="{{ project_name }}" popovertargetaction="hide">Close</button>
+        </dialog>
+        <a class="bd-radius-br-1ex" href="{{ href }}" target="_blank">Project</a>
+      </div>
     </div>
     {% endfor %}
   </div>
