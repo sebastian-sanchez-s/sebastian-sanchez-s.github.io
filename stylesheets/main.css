@@ -60,6 +60,7 @@ blockquote {
   flex: 1;
   border: none; 
   text-align: center;
+  text-decoration: none;
   background-color: color-mix(in srgb, gray 30%, transparent);
 }
 .card-footer > button:hover, .card-footer > a:hover {
