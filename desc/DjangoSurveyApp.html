@@ -1,0 +1,29 @@
+<h1>Django Surveys</h1>
+
+<p>
+This project is part of the digitalization process of a health
+related faculty. I took care of the database design and backbone
+implementation.
+</p>
+
+<p>
+I used class based views, permissions mixin, and forms.
+The architecture is decoupled i.e. templates do not
+mess with business logic and queries are handled mostly by models.
+I put a lot of effort into writing idiomatic django code.
+</p>
+
+<p>
+The app consists of Pollsters, Respondents, Surveys, Questions
+and Answers, as show the entity-relation diagram on the right.
+I design the database such that common data retrieval
+queries are efficient i.e. getting all answers to a question.
+</p>
+
+<p>
+TODO:
+<ul>
+  <li>text in views, right now it is hardcoded and some components
+    can be defined on the models definition.</li>
+</ul>
+</p>
