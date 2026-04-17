@@ -50,13 +50,10 @@ blockquote {
 }
 .card:hover { border-color: white; }
 
-.card-desc * { display: none; }
-.card-desc > h1 {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  height: 3.5em; 
+.card-desc > * { display: none; }
+.card-desc > .card-desc-title {
+  display: block;
+  height: 3em; 
   margin: 0;
 }
 .card-img { flex: 1; }
