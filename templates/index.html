@@ -31,23 +31,7 @@
   --<cite>Vladimir I. Arnold</cite>
   </blockquote>
 
-  <div class="gallery">
-    {% for project_name, href in 
-    (
-      ( 'ARIMA', 'projects/ARIMA/ARIMA.html'),
-      ( 'MasterThesis', 'https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a'),
-      ( 'WassersteinAnimation', 'projects/WassersteinAnimation/WassersteinAnimation.html'),
-      ( 'HeatMethod', 'projects/HeatMethod/HeatMethod.html'),
-      ( 'DjangoSurveyApp', 'https://github.com/sebastian-sanchez-s/MEBA'),
-      ( 'ModelViewProjection', 'projects/ModelViewProjection/ModelViewProjection.html'),
-      ( 'WaveScattering', 'projects/WaveScattering/WaveScattering.html'),
-      ( 'DiscreteLaplacian', 'projects/DiscreteLaplacian/DiscreteLaplacian.html'),
-      ( 'LogisticRegression', 'projects/LogisticRegression/LogisticRegression.html'),
-      ( 'YoungTableauxOuterSums', 'https://github.com/sebastian-sanchez-s/IPI-23-2211'),
-      ( 'RIOW', 'https://github.com/sebastian-sanchez-s/riow'),
-      ( 'MapOfWorld', 'projects/MapOfWorld/MapOfWorld.html'),
-      ( 'Bitmap', 'https://github.com/sebastian-sanchez-s/BitMap'),
-    )%}
+  {% macro render_card(project_name, href) -%}
     <div class="card w-20 bd-2 bd-solid bd-darkcyan" >
       <div class="card-desc">
         {% include 'desc/'~project_name~'.html' %}
@@ -62,7 +46,63 @@
         <a class="bd-radius-br-1ex" href="{{ href }}" target="_blank">Project</a>
       </div>
     </div>
+
+  {%- endmacro %}
+
+  <div class="gallery-section">
+  {% for year, projects in 
+  (
+    (
+      '2026',
+      (
+        ('ARIMA', 'projects/ARIMA/ARIMA.html'),
+        ('MapOfWorld', 'projects/MapOfWorld/MapOfWorld.html'),
+        ('DjangoSurveyApp', 'https://github.com/sebastian-sanchez-s/MEBA'),
+        ('LogisticRegression', 'projects/LogisticRegression/LogisticRegression.html'),
+      ),
+    ),
+    (
+      '2025',
+      (
+        ('MasterThesis', 'https://uccl0-my.sharepoint.com/:b:/g/personal/slsanchez_uc_cl/IQDpc1TxThaYSYNLo1uX14hwAdn7O0o0K3sq7dAP7M7bziI?e=U2ct7a'),
+        ('WassersteinAnimation', 'projects/WassersteinAnimation/WassersteinAnimation.html'),
+        ('ModelViewProjection', 'projects/ModelViewProjection/ModelViewProjection.html'),
+      ),
+    ),
+    (
+      '2024',
+      (
+        ('HeatMethod', 'projects/HeatMethod/HeatMethod.html'),
+        ('DiscreteLaplacian', 'projects/DiscreteLaplacian/DiscreteLaplacian.html'),
+      ),
+    ),
+    (
+      '2023',
+      (
+        ('YoungTableauxOuterSums', 'https://github.com/sebastian-sanchez-s/IPI-23-2211'),
+        ('WaveScattering', 'projects/WaveScattering/WaveScattering.html'),
+      ),
+    ),
+    (
+      '2022',
+      (
+        ('RIOW', 'https://github.com/sebastian-sanchez-s/riow'),
+      ),
+    ),
+    (
+      '2020',
+      (
+        ('Bitmap', 'https://github.com/sebastian-sanchez-s/BitMap'),
+      ),
+    ),
+  )%}
+    <p>{{ year }}</p>
+    <div class="gallery">
+    {% for project_name, href in projects %}
+        {{ render_card(project_name, href) }}
     {% endfor %}
+    </div>
+  {% endfor %}
   </div>
 </main>
 {% endblock %}

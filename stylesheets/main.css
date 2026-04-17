@@ -19,6 +19,17 @@ blockquote {
   text-align: justify;
 }
 
+.gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  text-align: center;
+}
+
+.gallery-section > p {
+  border-top: 1px solid darkcyan;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
