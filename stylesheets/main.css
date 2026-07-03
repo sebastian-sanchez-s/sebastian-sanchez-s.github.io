@@ -1,4 +1,4 @@
-* { font-size: large; color: white; }
+* { font-size: large; color: white; font-family: "Google Sans Flex", sans-serif; }
 a { text-decoration: underline gray; color: white; }
 
 .profile { width: 90%; text-align: justify; }
